@@ -5,7 +5,7 @@ import styles from "../styles/index"
 
 function home() {
   return (
-    <div className="bg-primary h-screen text-white">
+    <div className="bg-black h-screen text-white">
         <Navbar />
         <Hero />
     </div>
