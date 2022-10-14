@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { FiSearch } from 'react-icons/fi'
+import SearchBar from './SearchBar'
 
 
 function Hero() {
@@ -19,18 +20,7 @@ function Hero() {
                     noValidate
                     onSubmit={handleSubmit} 
                 >
-                    <div className='w-full flex justify-center' dir='ltr'>
-                        <FiSearch size={20} className='relative text-[#0004] top-2.5 left-7' />
-                        <input 
-                            name='search'
-                            className='text-black w-5/6 sm:w-96 h-10 rounded-md text-sm px-5 transition-all'
-                            placeholder='ساكن وين؟  جبل أولياء ، المهندسين ، الصافية ...'
-                            type='text' 
-                            onChange={(e) => setSearchInput(e.target.value)} 
-                            value={searchInput}
-                            dir="rtl"
-                        />
-                    </div>
+                    <SearchBar onChange={(e) => setSearchInput(e.target.value)} value={searchInput}/>
                     
                     <button type='submit' className='bg-primary mt-3 rounded-md px-8 pb-2 text-lg hover:bg-purple-900 transition-all'>بحث</button>
                 </form>
