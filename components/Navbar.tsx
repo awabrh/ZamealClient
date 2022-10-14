@@ -9,7 +9,7 @@ function Navbar() {
     // ------------------------------------------ mobile 
     <>
     { toggle ?
-        <div className="absolute bg-[#000000bc] w-screen h-screen flex flex-row-reverse justify-end transition-all duration-100">
+        <div className="absolute bg-[#000000e2] w-screen h-screen flex flex-row-reverse justify-end transition-all duration-100">
             <HiX className="mx-7 my-2 hover:cursor-pointer" size={50} onClick={() => {setToggle((prevState) => (!prevState))}}/>
             <div className="flex flex-col ml-24 justify-center items-center w-full h-full">
                 <ul className="flex flex-col justify-around h-1/2 items-center">
