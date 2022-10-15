@@ -13,11 +13,11 @@ function TextField({label, type, name, value, onChange, placeholder} : TextField
 
   return (
     <div className="w-full max-w-sm ">
-        <label className="p-3 font-light focus:text-primary" >{label}</label>
+        <label className="p-3 font-light" >{label}</label>
         <input 
         type={type}
         name = {name}
-        className="w-full bg-black rounded-lg my-2 h-10 text-white p-4"
+        className="w-full bg-black rounded-lg my-2 h-10 text-white p-4 transition-all"
         value={value}
         onChange = {onChange}
         placeholder = {placeholder}
