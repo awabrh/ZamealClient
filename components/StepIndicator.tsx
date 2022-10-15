@@ -27,10 +27,10 @@ function StepIndicator({step} : StepIndicatorProps) {
     }
     
   return (
-    <div className='relative flex w-96 justify-between'>
-        <div className={`absolute z-10 w-40 right-8 top-3.5 h-1 bg-${step2}`} ></div>
+    <div className='relative flex w-72 md:w-96 justify-between'>
+        <div className={`absolute z-10 w-28 md:w-40 right-8 top-3.5 h-1 bg-${step2}`} ></div>
 
-        <div className={`absolute z-10 w-40 left-8 top-3.5 h-1 bg-${step3}`}></div>
+        <div className={`absolute z-10 w-28 md:w-40 left-8 top-3.5 h-1 bg-${step3}`}></div>
 
         <div className='flex flex-col items-center z-20'>
             <div className={`bg-primary h-6 w-6 rounded-full m-1`} />
