@@ -17,7 +17,7 @@ function TextField({label, type, name, value, onChange, placeholder} : TextField
         <input 
         type={type}
         name = {name}
-        className="w-full rounded-lg my-2 h-10 text-black p-4"
+        className="w-full bg-black rounded-lg my-2 h-10 text-white p-4"
         value={value}
         onChange = {onChange}
         placeholder = {placeholder}
