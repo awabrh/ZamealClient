@@ -7,17 +7,19 @@ function Navbar() {
 
   return (
     // ------------------------------------------ mobile 
-    <>
+    <div dir="ltr">
     { toggle ?
-        <div className="absolute bg-[#000000e2] w-screen h-screen flex flex-row-reverse justify-end transition-all duration-100">
-            <HiX className="mx-7 my-2 hover:cursor-pointer" size={50} onClick={() => {setToggle((prevState) => (!prevState))}}/>
-            <div className="flex flex-col ml-24 justify-center items-center w-full h-full">
-                <ul className="flex flex-col justify-around h-1/2 items-center">
-                    <li className="hover:text-[#555] hover:cursor-pointer transition-all duration-200"><a >الرئيسية</a></li>
-                    <li className="hover:text-[#555] hover:cursor-pointer transition-all duration-200"><a>تسجيل الدخول</a></li>
-                    <li className="hover:text-[#555] hover:cursor-pointer transition-all duration-200"><a>اضف ترحيلك</a></li>
-                    <li className="hover:text-[#555] hover:cursor-pointer transition-all duration-200"><a>من نحن ؟</a></li>
-                </ul>
+        <div className="absolute w-screen h-screen ">
+            <div className="fixed w-full h-full bg-[#000000e2]  flex flex-row-reverse justify-end transition-all duration-100">
+                <HiX className="mx-7 my-2 hover:cursor-pointer" size={50} onClick={() => {setToggle((prevState) => (!prevState))}}/>
+                <div className="flex flex-col ml-24 justify-center items-center w-full h-full">
+                    <ul className="flex flex-col justify-around h-1/2 items-center">
+                        <li className="hover:text-[#555] hover:cursor-pointer transition-all duration-200"><a >الرئيسية</a></li>
+                        <li className="hover:text-[#555] hover:cursor-pointer transition-all duration-200"><a>تسجيل الدخول</a></li>
+                        <li className="hover:text-[#555] hover:cursor-pointer transition-all duration-200"><a>اضف ترحيلك</a></li>
+                        <li className="hover:text-[#555] hover:cursor-pointer transition-all duration-200"><a>من نحن ؟</a></li>
+                    </ul>
+                </div>
             </div>
         </div>
         : <></> 
@@ -46,7 +48,7 @@ function Navbar() {
             </div>
 
         </div>
-    </>
+    </div>
   );
 }
 
