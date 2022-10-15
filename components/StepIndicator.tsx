@@ -38,13 +38,13 @@ function StepIndicator({step} : StepIndicatorProps) {
         </div>
 
         <div className='flex flex-col items-center z-20'>
-            <div className={`bg-${step2} h-6 w-6 rounded-full m-1`} />
-            <p className={`text-${step2} w-20 text-center font-thin`}>معلومات المركبة</p>
+            <div className={`bg-${step2} h-6 w-6 rounded-full m-1 transition-all duration-500`} />
+            <p className={`text-${step2} w-20 text-center font-thin transition-all duration-500`}>معلومات المركبة</p>
         </div>
 
         <div className='flex flex-col items-center z-20'>
-            <div className={`bg-${step3} h-6 w-6 rounded-full m-1`} />
-            <p className={`text-${step3} w-20 text-center font-thin`}>معلومات الترحيل</p>
+            <div className={`bg-${step3} h-6 w-6 rounded-full m-1 transition-all duration-500`} />
+            <p className={`text-${step3} w-20 text-center font-thin transition-all duration-500`}>معلومات الترحيل</p>
         </div>
     </div>
   )
