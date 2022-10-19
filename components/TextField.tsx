@@ -1,29 +1,33 @@
-import React from "react";
+import { useField } from "formik";
+import React, { InputHTMLAttributes } from "react";
 
-interface TextFieldProps {
-    label? : string
-    type? : React.HTMLInputTypeAttribute
-    name? : string
-    value? : string | number | readonly string[]
-    onChange? : React.ChangeEventHandler<HTMLInputElement>
-    placeholder? : string
-}
+type TextFieldProps = InputHTMLAttributes<HTMLInputElement> & {
+  name: string;
+  label: string;
+};
+// interface TextFieldProps {
+//     label? : string
+//     type? : React.HTMLInputTypeAttribute
+//     name? : string
+//     value? : string | number | readonly string[]
+//     onChange? : React.ChangeEventHandler<HTMLInputElement>
+//     placeholder? : string
+// }
 
-function TextField({label, type, name, value, onChange, placeholder} : TextFieldProps) {
+const TextField: React.FC<TextFieldProps> = ({ label, ...props }) => {
+  const [field, { error }] = useField(props);
 
   return (
     <div className="w-full max-w-sm ">
-        <label className="p-3 font-light" >{label}</label>
-        <input 
-        type={type}
-        name = {name}
+      <label className="p-3 font-light">{label}</label>
+      <input
+        {...props}
+        {...field}
         className="w-full bg-black rounded-lg my-2 h-10 text-white p-4 transition-all border"
-        value={value}
-        onChange = {onChange}
-        placeholder = {placeholder}
-        />
+      />
+      {error ? <div className="text-red-600">{error}</div> : null}
     </div>
   );
-}
+};
 
 export default TextField;
