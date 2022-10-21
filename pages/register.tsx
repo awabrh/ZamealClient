@@ -3,24 +3,11 @@ import Navbar from "../components/Navbar";
 import TextField from "../components/TextField";
 import { Formik, Form } from "formik";
 import { useMutation } from "urql";
-
-const REGISTER_MUTATION = `
-mutation Register($email: String!, $password: String!) {
-  register(options: {email: $email, password: $password}) {
-    errors{
-      field
-      message
-    }
-    user {
-      id
-      email
-    }
-  }
-}
-`;
+import { useRegisterMutation } from "../src/generated/graphql";
+import { toErrorMap } from "../utils/toErrorMap";
 
 function register() {
-  const [, register] = useMutation(REGISTER_MUTATION);
+  const [, register] = useRegisterMutation();
   return (
     <div dir="rtl">
       <Navbar />
@@ -29,9 +16,13 @@ function register() {
           <h2 className="text-4xl font-bold pb-6">تسجيل حساب جديد</h2>
           <Formik
             initialValues={{ email: "", password: "" }}
-            onSubmit={async (values) => {
+            onSubmit={async (values, { setErrors }) => {
               console.log(values);
               const response = await register(values);
+              if (response.data?.register.errors) {
+                console.log(toErrorMap(response.data.register.errors));
+                setErrors(toErrorMap(response.data.register.errors));
+              }
             }}
           >
             {({ values, handleChange }) => (
