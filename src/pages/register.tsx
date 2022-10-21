@@ -29,9 +29,9 @@ function register() {
           <h2 className="text-4xl font-bold pb-6">تسجيل حساب جديد</h2>
           <Formik
             initialValues={{ email: "", password: "" }}
-            onSubmit={(values) => {
+            onSubmit={async (values) => {
               console.log(values);
-              return register(values);
+              const response = await register(values);
             }}
           >
             {({ values, handleChange }) => (

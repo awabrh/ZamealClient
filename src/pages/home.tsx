@@ -1,13 +1,13 @@
 import React from "react";
 import Hero from "../components/Hero";
 import Navbar from "../components/Navbar";
-import styles from "../styles/index"
+import styles from "../../styles/index";
 
 function home() {
   return (
     <div className="bg-black h-screen text-white">
-        <Navbar />
-        <Hero />
+      <Navbar />
+      <Hero />
     </div>
   );
 }
