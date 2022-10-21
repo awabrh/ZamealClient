@@ -1,6 +1,8 @@
 import React from "react";
 import LoginForm from "../components/LoginForm";
 import Navbar from "../components/Navbar";
+import { withUrqlClient } from "next-urql";
+import { createUrqlClient } from "../utils/createUrqlClient";
 
 function login() {
   return (
@@ -13,4 +15,4 @@ function login() {
   );
 }
 
-export default login;
+export default withUrqlClient(createUrqlClient)(login);

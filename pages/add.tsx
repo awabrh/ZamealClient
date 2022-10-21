@@ -1,6 +1,8 @@
 import React from "react";
 import AddTarheel from "../components/AddTarheel";
 import Navbar from "../components/Navbar";
+import { withUrqlClient } from "next-urql";
+import { createUrqlClient } from "../utils/createUrqlClient";
 
 function add() {
   return (
@@ -11,4 +13,4 @@ function add() {
   );
 }
 
-export default add;
+export default withUrqlClient(createUrqlClient)(add);
