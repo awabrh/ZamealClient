@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import { FaBars } from "react-icons/fa";
 import { HiX } from "react-icons/hi";
 import Link from "next/link";
-import { useMeQuery } from "../generated/graphql";
+import { useLogoutMutation, useMeQuery } from "../generated/graphql";
 
 function Navbar() {
   const [{ data, fetching }] = useMeQuery();
+  const [, logout] = useLogoutMutation();
   const [toggle, setToggle] = useState(false);
 
   let userLinks = null;
@@ -30,7 +31,12 @@ function Navbar() {
     userLinks = (
       <>
         <div>{data.me.email}</div>
-        <div className="hover:text-[#555] hover:cursor-pointer transition-all duration-200">
+        <div
+          className="hover:text-[#555] hover:cursor-pointer transition-all duration-200"
+          onClick={() => {
+            logout({});
+          }}
+        >
           تسجيل الخروج
         </div>
       </>
