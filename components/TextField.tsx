@@ -5,14 +5,6 @@ type TextFieldProps = InputHTMLAttributes<HTMLInputElement> & {
   name: string;
   label: string;
 };
-// interface TextFieldProps {
-//     label? : string
-//     type? : React.HTMLInputTypeAttribute
-//     name? : string
-//     value? : string | number | readonly string[]
-//     onChange? : React.ChangeEventHandler<HTMLInputElement>
-//     placeholder? : string
-// }
 
 const TextField: React.FC<TextFieldProps> = ({ label, ...props }) => {
   const [field, { error }] = useField(props);
