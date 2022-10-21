@@ -3,11 +3,14 @@ import Navbar from "../components/Navbar";
 import TextField from "../components/TextField";
 import { Formik, Form } from "formik";
 import { useMutation } from "urql";
-import { useRegisterMutation } from "../src/generated/graphql";
+import { useRegisterMutation } from "../generated/graphql";
 import { toErrorMap } from "../utils/toErrorMap";
+import { useRouter } from "next/router";
 
 function register() {
   const [, register] = useRegisterMutation();
+  const router = useRouter();
+
   return (
     <div dir="rtl">
       <Navbar />
@@ -20,8 +23,9 @@ function register() {
               console.log(values);
               const response = await register(values);
               if (response.data?.register.errors) {
-                console.log(toErrorMap(response.data.register.errors));
                 setErrors(toErrorMap(response.data.register.errors));
+              } else if (response.data?.register.user) {
+                router.push("/");
               }
             }}
           >
