@@ -3,9 +3,12 @@ import { FaBars } from "react-icons/fa";
 import { HiX } from "react-icons/hi";
 import Link from "next/link";
 import { useLogoutMutation, useMeQuery } from "../generated/graphql";
+import { isServer } from "../utils/isServer";
 
 function Navbar() {
-  const [{ data, fetching }] = useMeQuery();
+  const [{ data, fetching }] = useMeQuery({
+    pause: isServer(),
+  });
   const [, logout] = useLogoutMutation();
   const [toggle, setToggle] = useState(false);
 
