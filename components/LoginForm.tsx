@@ -1,15 +1,27 @@
 import { Form, Formik } from "formik";
+import { useRouter } from "next/router";
 import React from "react";
+import { useLoginMutation } from "../generated/graphql";
+import { toErrorMap } from "../utils/toErrorMap";
 import TextField from "./TextField";
 
 function LoginForm() {
+  const [, login] = useLoginMutation();
+  const router = useRouter();
+
   return (
     <div className="flex flex-col items-center gap-6 p-4">
       <h2 className="text-4xl font-bold pb-6">تسجيل الدخول</h2>
       <Formik
         initialValues={{ email: "", password: "" }}
-        onSubmit={(values) => {
+        onSubmit={async (values, { setErrors }) => {
           console.log(values);
+          const response = await login(values);
+          if (response.data?.login.errors) {
+            setErrors(toErrorMap(response.data.login.errors));
+          } else if (response.data?.login.user) {
+            router.push("/");
+          }
         }}
       >
         {({ values, handleChange }) => (
@@ -19,7 +31,6 @@ function LoginForm() {
             <button
               type="submit"
               className="bg-primary w-full mt-3 rounded-lg py-2 text-lg hover:bg-purple-900 transition-all"
-              onClick={() => {}}
             >
               تسجيل الدخول
             </button>
