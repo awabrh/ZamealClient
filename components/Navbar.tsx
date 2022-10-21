@@ -3,12 +3,18 @@ import { FaBars } from "react-icons/fa";
 import { HiX } from "react-icons/hi";
 import Link from "next/link";
 import { useLogoutMutation, useMeQuery } from "../generated/graphql";
-import { isServer } from "../utils/isServer";
+import { useEffect } from "react";
 
 function Navbar() {
-  const [{ data, fetching }] = useMeQuery({
-    pause: isServer(),
+  const [isServer, setIsServer] = useState(true);
+  useEffect(() => {
+    setIsServer(false);
   });
+
+  const [{ data, fetching }] = useMeQuery({
+    pause: isServer,
+  });
+
   const [, logout] = useLogoutMutation();
   const [toggle, setToggle] = useState(false);
 
@@ -21,7 +27,9 @@ function Navbar() {
     userLinks = (
       <>
         <li className="hover:text-[#555] hover:cursor-pointer transition-all duration-200">
-          <Link href="/login">تسجيل الدخول</Link>
+          <Link href="/login" suppressHydrationWarning>
+            تسجيل الدخول
+          </Link>
         </li>
         <li className="hover:text-[#555] hover:cursor-pointer transition-all duration-200">
           <Link href="/register">تسجيل حساب</Link>
@@ -66,7 +74,9 @@ function Navbar() {
                 </li>
                 {userLinks}
                 <li className="hover:text-[#555] hover:cursor-pointer transition-all duration-200">
-                  <Link href="/add"> اضف ترحيلك </Link>
+                  <Link href="/add" suppressHydrationWarning>
+                    اضف ترحيلك
+                  </Link>
                 </li>
                 <li className="hover:text-[#555] hover:cursor-pointer transition-all duration-200">
                   <Link href="/about">من نحن؟</Link>
