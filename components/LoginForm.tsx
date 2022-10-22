@@ -26,8 +26,20 @@ function LoginForm() {
       >
         {({ values, handleChange }) => (
           <Form>
-            <TextField name="email" label="البريد الالكتروني" type="email" />
-            <TextField name="password" label="كلمة المرور" type="password" />
+            <TextField
+              name="email"
+              label="البريد الالكتروني"
+              type="email"
+              value={values.email}
+              onChange={handleChange}
+            />
+            <TextField
+              name="password"
+              label="كلمة المرور"
+              type="password"
+              value={values.email}
+              onChange={handleChange}
+            />
             <button
               type="submit"
               className="bg-primary w-full mt-3 rounded-lg py-2 text-lg hover:bg-purple-900 transition-all"
