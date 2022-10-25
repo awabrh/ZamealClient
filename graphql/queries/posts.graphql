@@ -3,6 +3,13 @@ query Posts {
     id
     createdAt
     updatedAt
-    title
+    carModel
+    numberOfSeats
+    isAcWorking
+    locations
+    price
+    departure
+    arrival
+    days
   }
 }

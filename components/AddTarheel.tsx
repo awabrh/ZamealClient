@@ -1,4 +1,4 @@
-import { Field, Form, Formik } from "formik";
+import { Form, Formik } from "formik";
 import React, { useState } from "react";
 import { Batch, Day, EngineeringDep } from "../utils/types";
 import Button from "./Button";

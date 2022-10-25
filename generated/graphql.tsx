@@ -15,6 +15,25 @@ export type Scalars = {
   Float: number;
 };
 
+export type AddTarheelInput = {
+  address: Scalars['String'];
+  arrival: Scalars['String'];
+  batch: Scalars['String'];
+  carModel: Scalars['String'];
+  days: Array<Scalars['String']>;
+  dep: Scalars['String'];
+  departure: Scalars['String'];
+  email: Scalars['String'];
+  isAcWorking: Scalars['Boolean'];
+  locations: Scalars['String'];
+  mobile: Scalars['String'];
+  name: Scalars['String'];
+  numberOfSeats: Scalars['Float'];
+  password: Scalars['String'];
+  price: Scalars['Float'];
+  repeatPassword: Scalars['String'];
+};
+
 export type EmailPasswordInput = {
   email: Scalars['String'];
   password: Scalars['String'];
@@ -46,7 +65,7 @@ export type MutationChangePasswordArgs = {
 
 
 export type MutationCreatePostArgs = {
-  title: Scalars['String'];
+  formInput: AddTarheelInput;
 };
 
 
@@ -77,9 +96,16 @@ export type MutationUpdatePostArgs = {
 
 export type Post = {
   __typename?: 'Post';
+  arrival: Scalars['String'];
+  carModel: Scalars['String'];
   createdAt: Scalars['String'];
+  days: Array<Scalars['String']>;
+  departure: Scalars['String'];
   id: Scalars['Int'];
-  title: Scalars['String'];
+  isAcWorking: Scalars['Boolean'];
+  locations: Scalars['String'];
+  numberOfSeats: Scalars['Int'];
+  price: Scalars['Int'];
   updatedAt: Scalars['String'];
 };
 
@@ -98,9 +124,14 @@ export type QueryPostArgs = {
 
 export type User = {
   __typename?: 'User';
+  address: Scalars['String'];
+  batch: Scalars['String'];
   createdAt: Scalars['String'];
+  dep: Scalars['String'];
   email: Scalars['String'];
   id: Scalars['Int'];
+  mobile: Scalars['String'];
+  name: Scalars['String'];
   updatedAt: Scalars['String'];
 };
 
@@ -160,7 +191,7 @@ export type MeQuery = { __typename?: 'Query', me?: { __typename?: 'User', id: nu
 export type PostsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type PostsQuery = { __typename?: 'Query', posts: Array<{ __typename?: 'Post', id: number, createdAt: string, updatedAt: string, title: string }> };
+export type PostsQuery = { __typename?: 'Query', posts: Array<{ __typename?: 'Post', id: number, createdAt: string, updatedAt: string, carModel: string, numberOfSeats: number, isAcWorking: boolean, locations: string, price: number, departure: string, arrival: string, days: Array<string> }> };
 
 export const RegularErrorFragmentDoc = gql`
     fragment RegularError on FieldError {
@@ -253,7 +284,14 @@ export const PostsDocument = gql`
     id
     createdAt
     updatedAt
-    title
+    carModel
+    numberOfSeats
+    isAcWorking
+    locations
+    price
+    departure
+    arrival
+    days
   }
 }
     `;

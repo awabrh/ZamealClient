@@ -19,7 +19,9 @@ function search() {
         <div className=" py-1 px-4 grid justify-center gap-y-8 gap-x-8  double:grid-cols-2 grid-cols-1 triple:grid-cols-3 xl:grid-cols-4  w-full ">
           {!data
             ? null
-            : data?.posts.map((post) => <div key={post.id}>{post.title}</div>)}
+            : data?.posts.map((post) => (
+                <div key={post.id}>{post.carModel}</div>
+              ))}
         </div>
       </div>
     </div>
