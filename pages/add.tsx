@@ -13,4 +13,4 @@ function add() {
   );
 }
 
-export default withUrqlClient(createUrqlClient)(add);
+export default withUrqlClient(createUrqlClient, { ssr: false })(add);

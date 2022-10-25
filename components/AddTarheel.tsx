@@ -1,4 +1,6 @@
+import { Field, Form, Formik } from "formik";
 import React, { useState } from "react";
+import { Batch, Day, EngineeringDep } from "../utils/types";
 import Button from "./Button";
 import Checkbox from "./Checkbox";
 import Select from "./Select";
@@ -12,6 +14,44 @@ interface StepsVisibility {
   step2: visisbility;
   step3: visisbility;
 }
+
+interface AddTarheelInput {
+  name: string;
+  dep: EngineeringDep;
+  batch: Batch;
+  address: string;
+  mobile: string;
+  email: string;
+  password: string;
+  repeatPassword: string;
+  carModel: string;
+  numberOfSeats: 1 | 2 | 3 | 4;
+  isAcWorking: boolean;
+  locations: string;
+  price?: number;
+  departure: string;
+  arrival: string;
+  days: Day[];
+}
+
+const initialValues: AddTarheelInput = {
+  name: "",
+  dep: "mechanical",
+  batch: "016",
+  address: "",
+  mobile: "",
+  email: "",
+  password: "",
+  repeatPassword: "",
+  carModel: "",
+  numberOfSeats: 4,
+  isAcWorking: false,
+  locations: "",
+  price: undefined,
+  departure: "",
+  arrival: "",
+  days: [],
+};
 
 function AddTarheel() {
   const [step, setStep] = useState<1 | 2 | 3>(1);
@@ -63,78 +103,197 @@ function AddTarheel() {
       <h2 className="text-4xl font-bold pb-6">إضافة ترحيل</h2>
       <StepIndicator step={step} />
 
-      <form className="w-full flex flex-col gap-3 items-center pt-10">
-        {/* ---------------------------------------step 1--------------------------------------- */}
-        <div className={`${steps.step1}`}>
-          <TextField name="name" label="الاسم" type="text" />
-          <Select label="القسم">
-            <option>الهندسة الميكانيكية</option>
-            <option>الهندسة الكهربائية</option>
-            <option>الهندسة الزراعية</option>
-          </Select>
-          <Select label="الدفعة">
-            <option>016</option>
-            <option>017</option>
-            <option>018</option>
-            <option>019</option>
-            <option>020</option>
-            <option>021</option>
-          </Select>
-          <TextField name="address" label="السكن" type="text" />
-          <TextField name="mobile" label="رقم الهاتف" type="tel" />
-          <TextField name="email" label="البريد الالكتروني" type="email" />
-          <TextField name="password" label="كلمة المرور" type="password" />
-          <TextField
-            name="repeat_password"
-            label="إعادة كلمة المرور"
-            type="password"
-          />
-        </div>
+      <Formik
+        initialValues={initialValues}
+        onSubmit={(values) => {
+          console.log(values);
+        }}
+      >
+        {({ values, handleChange }) => (
+          <Form className="w-full flex flex-col gap-3 items-center pt-10">
+            {/* ---------------------------------------step 1--------------------------------------- */}
+            <div className={`${steps.step1}`}>
+              <TextField
+                name="name"
+                label="الاسم"
+                type="text"
+                value={values.name}
+                onChange={handleChange}
+              />
+              <Select
+                name="dep"
+                label="القسم"
+                value={values.dep}
+                onChange={handleChange}
+              >
+                <option value="mechanical">الهندسة الميكانيكية</option>
+                <option value="electrical">الهندسة الكهربائية</option>
+                <option value="agricultural">الهندسة الزراعية</option>
+              </Select>
+              <Select
+                name="batch"
+                label="الدفعة"
+                value={values.batch}
+                onChange={handleChange}
+              >
+                <option value="016">016</option>
+                <option value="017">017</option>
+                <option value="018">018</option>
+                <option value="019">019</option>
+                <option value="020">020</option>
+                <option value="021">021</option>
+              </Select>
+              <TextField
+                name="address"
+                label="السكن"
+                type="text"
+                value={values.address}
+                onChange={handleChange}
+              />
+              <TextField
+                name="mobile"
+                label="رقم الهاتف"
+                type="number"
+                value={values.mobile}
+                onChange={handleChange}
+              />
+              <TextField
+                name="email"
+                label="البريد الالكتروني"
+                type="email"
+                value={values.email}
+                onChange={handleChange}
+              />
+              <TextField
+                name="password"
+                label="كلمة المرور"
+                type="password"
+                value={values.password}
+                onChange={handleChange}
+              />
+              <TextField
+                name="repeatPassword"
+                label="إعادة كلمة المرور"
+                type="password"
+                value={values.repeatPassword}
+                onChange={handleChange}
+              />
+            </div>
 
-        {/* ---------------------------------------step 2--------------------------------------- */}
-        <div className={`${steps.step2}`}>
-          <TextField name="car_model" label="موديل المركبة" type="text" />
-          <Select label="عدد المقاعد المتاحة">
-            <option>4</option>
-            <option>3</option>
-            <option>2</option>
-            <option>1</option>
-          </Select>
-          <Checkbox text="هل يعمل المكيف ؟" />
-        </div>
+            {/* ---------------------------------------step 2--------------------------------------- */}
+            <div className={`${steps.step2}`}>
+              <TextField
+                name="carModel"
+                label="موديل المركبة"
+                type="text"
+                value={values.carModel}
+                onChange={handleChange}
+              />
+              <Select
+                name="numberOfSeats"
+                label="عدد المقاعد المتاحة"
+                value={values.numberOfSeats}
+                onChange={handleChange}
+              >
+                <option value={4}>4</option>
+                <option value={3}>3</option>
+                <option value={2}>2</option>
+                <option value={1}>1</option>
+              </Select>
+              <Checkbox
+                name="isAcWorking"
+                text="هل يعمل المكيف ؟"
+                onChange={handleChange}
+              />
+            </div>
 
-        {/* ---------------------------------------step 3--------------------------------------- */}
-        <div className={`${steps.step3}`}>
-          <TextField
-            name="tags"
-            label="ما المناطق التي تمر بها ؟"
-            type="text"
-          />
-          <TextField name="price" label="السعر للراكب" type="text" />
-          <div className="flex max-w-sm gap-6">
-            <TextField name="departure" label="زمن الذهاب" type="time" />
-            <TextField name="arrival" label="زمن الرجوع" type="time" />
-          </div>
-          <div className="grid grid-cols-3 items-center">
-            <p>الايام المتاحة:</p>
-            <Checkbox text="الاحد" />
-            <Checkbox text="الاثنين" />
-            <Checkbox text="الثلاثاء" />
-            <Checkbox text="الاربعاء" />
-            <Checkbox text="الخميس" />
-          </div>
-        </div>
-
-        <Button label="متابعة" onClick={nextStep} />
-        {step !== 1 && (
-          <h5
-            className="py-3 text-primary cursor-pointer hover:text-purple-900"
-            onClick={back}
-          >
-            رجوع
-          </h5>
+            {/* ---------------------------------------step 3--------------------------------------- */}
+            <div className={`${steps.step3}`}>
+              <TextField
+                name="locations"
+                label="ما المناطق التي تمر بها ؟"
+                type="text"
+                value={values.locations}
+                onChange={handleChange}
+              />
+              <TextField
+                name="price"
+                label="السعر للراكب"
+                type="number"
+                value={values.price}
+                onChange={handleChange}
+              />
+              <div className="flex max-w-sm gap-6">
+                <TextField
+                  name="departure"
+                  label="زمن الذهاب"
+                  type="time"
+                  value={values.departure}
+                  onChange={handleChange}
+                />
+                <TextField
+                  name="arrival"
+                  label="زمن الرجوع"
+                  type="time"
+                  value={values.arrival}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="grid grid-cols-3 items-center">
+                <p>الايام المتاحة:</p>
+                <Checkbox
+                  name="days"
+                  type="checkbox"
+                  value="sunday"
+                  text="الاحد"
+                />
+                <Checkbox
+                  name="days"
+                  type="checkbox"
+                  value="monday"
+                  text="الاثنين"
+                />
+                <Checkbox
+                  name="days"
+                  type="checkbox"
+                  value="tuesday"
+                  text="الثلاثاء"
+                />
+                <Checkbox
+                  name="days"
+                  type="checkbox"
+                  value="wednesday"
+                  text="الاربعاء"
+                />
+                <Checkbox
+                  name="days"
+                  type="checkbox"
+                  value="thursday"
+                  text="الخميس"
+                />
+              </div>
+            </div>
+            {step !== 3 ? (
+              <Button label="متابعة" onClick={nextStep} />
+            ) : (
+              <button
+                type="submit"
+                className="bg-primary mt-3 rounded-md px-8 pb-2 text-lg hover:bg-purple-900 transition-all"
+              >
+                ارسال
+              </button>
+            )}
+            {step !== 1 && (
+              <h5
+                className="py-3 text-primary cursor-pointer hover:text-purple-900"
+                onClick={back}
+              >
+                رجوع
+              </h5>
+            )}
+          </Form>
         )}
-      </form>
+      </Formik>
     </div>
   );
 }

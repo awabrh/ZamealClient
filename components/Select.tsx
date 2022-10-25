@@ -1,20 +1,26 @@
-import React from "react";
+import React, { SelectHTMLAttributes } from "react";
+import { useField } from "formik";
 
-interface SelectProps {
+type SelectProps = SelectHTMLAttributes<HTMLSelectElement> & {
   label?: string;
-  children?: React.ReactNode;
-  onChange?: React.ChangeEventHandler<HTMLSelectElement>;
-}
+  name: string;
+};
 
-function Select({ children, label, onChange }: SelectProps) {
+const Select: React.FC<SelectProps> = ({ children, label, ...props }) => {
+  const [field, { error }] = useField(props);
+
   return (
     <div className="w-full max-w-sm ">
       <label className="p-3 font-light">{label}</label>
-      <select className="bg-black my-2  w-full rounded-lg max-w-sm">
+      <select
+        {...props}
+        {...field}
+        className="bg-black my-2  w-full rounded-lg max-w-sm"
+      >
         {children}
       </select>
     </div>
   );
-}
+};
 
 export default Select;
