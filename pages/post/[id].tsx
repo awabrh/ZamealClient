@@ -13,19 +13,27 @@ const Post: NextPage<{ id: string }> = ({ id }) => {
   } catch (error) {
     numberId = 0;
   }
-  const [{ data }] = usePostQuery({ variables: { id: numberId } });
+  const [{ data, fetching }] = usePostQuery({ variables: { id: numberId } });
   return (
     <div dir="rtl">
       <Navbar />
-      {data?.post ? (
-        <PostInfo post={data.post} />
-      ) : (
+      {fetching ? (
         <div className="flex flex-col w-full h-96 mt-32 items-center">
-          <h2 className="text-4xl font-bold">ياللاحراج !</h2>
-          <h2 className="text-4xl font-bold mb-10"> 👈👉 </h2>
-          <p>يبدو ان هنالك خطأ</p>
-          <p>هذه الصفحة غير موجودة</p>
+          جاري التحميل ...
         </div>
+      ) : (
+        <>
+          {data?.post ? (
+            <PostInfo post={data.post} />
+          ) : (
+            <div className="flex flex-col w-full h-96 mt-32 items-center">
+              <h2 className="text-4xl font-bold">ياللاحراج !</h2>
+              <h2 className="text-4xl font-bold mb-10"> 👈👉 </h2>
+              <p>يبدو ان هنالك خطأ</p>
+              <p>هذه الصفحة غير موجودة</p>
+            </div>
+          )}
+        </>
       )}
     </div>
   );
