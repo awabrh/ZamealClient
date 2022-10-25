@@ -1,0 +1,15 @@
+query Post($id: Float!) {
+  post(id: $id) {
+    id
+    createdAt
+    updatedAt
+    carModel
+    numberOfSeats
+    isAcWorking
+    locations
+    price
+    departure
+    arrival
+    days
+  }
+}
