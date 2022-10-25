@@ -1,5 +1,4 @@
 import React from "react";
-import InfoCard from "../../components/InfoCard";
 import Navbar from "../../components/Navbar";
 import PostInfo from "../../components/PostInfo";
 import { withUrqlClient } from "next-urql";

@@ -2,7 +2,6 @@ import React from "react";
 import Navbar from "../components/Navbar";
 import TextField from "../components/TextField";
 import { Formik, Form } from "formik";
-import { useMutation } from "urql";
 import { useRegisterMutation } from "../generated/graphql";
 import { toErrorMap } from "../utils/toErrorMap";
 import { useRouter } from "next/router";
