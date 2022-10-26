@@ -1,6 +1,11 @@
 import { Form, Formik } from "formik";
 import React, { useState } from "react";
-import { useRegisterMutation } from "../generated/graphql";
+import {
+  CreatePostMutationVariables,
+  FullRegisterInput,
+  useCreatePostMutation,
+  useRegisterMutation,
+} from "../generated/graphql";
 import { Batch, Day, EngineeringDep, Gender } from "../utils/types";
 import Button from "./Button";
 import Checkbox from "./Checkbox";
@@ -16,28 +21,7 @@ interface StepsVisibility {
   step3: visisbility;
 }
 
-interface AddTarheelInput {
-  carModel: string;
-  numberOfSeats: 1 | 2 | 3 | 4;
-  isAcWorking: boolean;
-  locations: string;
-  price?: number;
-  departure: string;
-  arrival: string;
-  days: Day[];
-}
-
-interface RegisterInput {
-  name: string;
-  dep: EngineeringDep;
-  batch: Batch;
-  gender: Gender;
-  address: string;
-  mobile: string;
-  email: string;
-  password: string;
-}
-const registerInitialValues: RegisterInput = {
+const registerInitialValues: FullRegisterInput = {
   name: "",
   dep: "mechanical",
   batch: "016",
@@ -48,12 +32,12 @@ const registerInitialValues: RegisterInput = {
   password: "",
 };
 
-const TarheelInitialValues: AddTarheelInput = {
+const TarheelInitialValues: CreatePostMutationVariables = {
   carModel: "",
   numberOfSeats: 4,
   isAcWorking: false,
   locations: "",
-  price: undefined,
+  price: 0,
   departure: "",
   arrival: "",
   days: [],
@@ -62,6 +46,7 @@ const TarheelInitialValues: AddTarheelInput = {
 function AddTarheel() {
   const [step, setStep] = useState<1 | 2 | 3>(1);
   const [, register] = useRegisterMutation();
+  const [, createPost] = useCreatePostMutation();
 
   const [steps, setSteps] = useState<StepsVisibility>({
     step1: "",
@@ -205,6 +190,10 @@ function AddTarheel() {
       <Formik
         initialValues={TarheelInitialValues}
         onSubmit={(values) => {
+          createPost({
+            ...values,
+            numberOfSeats: values.numberOfSeats as number,
+          });
           console.log(values);
         }}
       >

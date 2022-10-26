@@ -1,0 +1,25 @@
+mutation CreatePost(
+  $arrival: String!
+  $carModel: String!
+  $days: [String!]!
+  $departure: String!
+  $isAcWorking: Boolean!
+  $locations: String!
+  $numberOfSeats: Float!
+  $price: Float!
+) {
+  createPost(
+    formInput: {
+      arrival: $arrival
+      carModel: $carModel
+      days: $days
+      departure: $departure
+      isAcWorking: $isAcWorking
+      locations: $locations
+      numberOfSeats: $numberOfSeats
+      price: $price
+    }
+  ) {
+    id
+  }
+}

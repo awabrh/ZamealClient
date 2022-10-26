@@ -16,22 +16,14 @@ export type Scalars = {
 };
 
 export type AddTarheelInput = {
-  address: Scalars['String'];
   arrival: Scalars['String'];
-  batch: Scalars['String'];
   carModel: Scalars['String'];
   days: Array<Scalars['String']>;
-  dep: Scalars['String'];
   departure: Scalars['String'];
-  email: Scalars['String'];
   isAcWorking: Scalars['Boolean'];
   locations: Scalars['String'];
-  mobile: Scalars['String'];
-  name: Scalars['String'];
   numberOfSeats: Scalars['Float'];
-  password: Scalars['String'];
   price: Scalars['Float'];
-  repeatPassword: Scalars['String'];
 };
 
 export type EmailPasswordInput = {
@@ -168,6 +160,20 @@ export type ChangePasswordMutationVariables = Exact<{
 
 export type ChangePasswordMutation = { __typename?: 'Mutation', changePassword: { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, user?: { __typename?: 'User', id: number, email: string } | null } };
 
+export type CreatePostMutationVariables = Exact<{
+  arrival: Scalars['String'];
+  carModel: Scalars['String'];
+  days: Array<Scalars['String']> | Scalars['String'];
+  departure: Scalars['String'];
+  isAcWorking: Scalars['Boolean'];
+  locations: Scalars['String'];
+  numberOfSeats: Scalars['Float'];
+  price: Scalars['Float'];
+}>;
+
+
+export type CreatePostMutation = { __typename?: 'Mutation', createPost: { __typename?: 'Post', id: number } };
+
 export type ForgotPasswordMutationVariables = Exact<{
   email: Scalars['String'];
 }>;
@@ -252,6 +258,19 @@ export const ChangePasswordDocument = gql`
 
 export function useChangePasswordMutation() {
   return Urql.useMutation<ChangePasswordMutation, ChangePasswordMutationVariables>(ChangePasswordDocument);
+};
+export const CreatePostDocument = gql`
+    mutation CreatePost($arrival: String!, $carModel: String!, $days: [String!]!, $departure: String!, $isAcWorking: Boolean!, $locations: String!, $numberOfSeats: Float!, $price: Float!) {
+  createPost(
+    formInput: {arrival: $arrival, carModel: $carModel, days: $days, departure: $departure, isAcWorking: $isAcWorking, locations: $locations, numberOfSeats: $numberOfSeats, price: $price}
+  ) {
+    id
+  }
+}
+    `;
+
+export function useCreatePostMutation() {
+  return Urql.useMutation<CreatePostMutation, CreatePostMutationVariables>(CreatePostDocument);
 };
 export const ForgotPasswordDocument = gql`
     mutation ForgotPassword($email: String!) {
