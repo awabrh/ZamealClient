@@ -1,6 +1,7 @@
 import { Form, Formik } from "formik";
 import React, { useState } from "react";
-import { Batch, Day, EngineeringDep } from "../utils/types";
+import { useRegisterMutation } from "../generated/graphql";
+import { Batch, Day, EngineeringDep, Gender } from "../utils/types";
 import Button from "./Button";
 import Checkbox from "./Checkbox";
 import Select from "./Select";
@@ -16,14 +17,6 @@ interface StepsVisibility {
 }
 
 interface AddTarheelInput {
-  name: string;
-  dep: EngineeringDep;
-  batch: Batch;
-  address: string;
-  mobile: string;
-  email: string;
-  password: string;
-  repeatPassword: string;
   carModel: string;
   numberOfSeats: 1 | 2 | 3 | 4;
   isAcWorking: boolean;
@@ -34,15 +27,28 @@ interface AddTarheelInput {
   days: Day[];
 }
 
-const initialValues: AddTarheelInput = {
+interface RegisterInput {
+  name: string;
+  dep: EngineeringDep;
+  batch: Batch;
+  gender: Gender;
+  address: string;
+  mobile: string;
+  email: string;
+  password: string;
+}
+const registerInitialValues: RegisterInput = {
   name: "",
   dep: "mechanical",
   batch: "016",
+  gender: "male",
   address: "",
   mobile: "",
   email: "",
   password: "",
-  repeatPassword: "",
+};
+
+const TarheelInitialValues: AddTarheelInput = {
   carModel: "",
   numberOfSeats: 4,
   isAcWorking: false,
@@ -55,6 +61,7 @@ const initialValues: AddTarheelInput = {
 
 function AddTarheel() {
   const [step, setStep] = useState<1 | 2 | 3>(1);
+  const [, register] = useRegisterMutation();
 
   const [steps, setSteps] = useState<StepsVisibility>({
     step1: "",
@@ -62,8 +69,7 @@ function AddTarheel() {
     step3: "hidden",
   });
 
-  const nextStep: React.MouseEventHandler<HTMLButtonElement> = (e) => {
-    e.preventDefault();
+  const nextStep = () => {
     if (step === 1) {
       setStep(2);
       setSteps({
@@ -104,15 +110,18 @@ function AddTarheel() {
       <StepIndicator step={step} />
 
       <Formik
-        initialValues={initialValues}
+        initialValues={registerInitialValues}
         onSubmit={(values) => {
           console.log(values);
+          nextStep();
         }}
       >
         {({ values, handleChange }) => (
-          <Form className="w-full flex flex-col gap-3 items-center pt-10">
+          <Form className="">
             {/* ---------------------------------------step 1--------------------------------------- */}
-            <div className={`${steps.step1}`}>
+            <div
+              className={`${steps.step1} w-full flex flex-col gap-3 items-center pt-10`}
+            >
               <TextField
                 name="name"
                 label="الاسم"
@@ -143,6 +152,15 @@ function AddTarheel() {
                 <option value="020">020</option>
                 <option value="021">021</option>
               </Select>
+              <Select
+                name="gender"
+                label="الجنس"
+                value={values.batch}
+                onChange={handleChange}
+              >
+                <option value="male">ذكر</option>
+                <option value="female">انثى</option>
+              </Select>
               <TextField
                 name="address"
                 label="السكن"
@@ -171,17 +189,29 @@ function AddTarheel() {
                 value={values.password}
                 onChange={handleChange}
               />
-              <TextField
-                name="repeatPassword"
-                label="إعادة كلمة المرور"
-                type="password"
-                value={values.repeatPassword}
-                onChange={handleChange}
-              />
+              <button
+                type="submit"
+                className="bg-primary mt-3 rounded-md px-8 pb-2 text-lg hover:bg-purple-900 transition-all"
+              >
+                تسجيل
+              </button>
             </div>
+          </Form>
+        )}
+      </Formik>
 
-            {/* ---------------------------------------step 2--------------------------------------- */}
-            <div className={`${steps.step2}`}>
+      {/* ---------------------------------------step 2--------------------------------------- */}
+      <Formik
+        initialValues={TarheelInitialValues}
+        onSubmit={(values) => {
+          console.log(values);
+        }}
+      >
+        {({ values, handleChange }) => (
+          <Form className="w-full flex flex-col gap-3 items-center pt-10">
+            <div
+              className={`${steps.step2} w-full flex flex-col gap-3 items-center pt-10`}
+            >
               <TextField
                 name="carModel"
                 label="موديل المركبة"
@@ -205,10 +235,13 @@ function AddTarheel() {
                 text="هل يعمل المكيف ؟"
                 onChange={handleChange}
               />
+              {step === 2 && <Button label="متابعة" onClick={nextStep} />}
             </div>
 
             {/* ---------------------------------------step 3--------------------------------------- */}
-            <div className={`${steps.step3}`}>
+            <div
+              className={`${steps.step3} w-full flex flex-col gap-3 items-center pt-10`}
+            >
               <TextField
                 name="locations"
                 label="ما المناطق التي تمر بها ؟"
@@ -239,7 +272,7 @@ function AddTarheel() {
                   onChange={handleChange}
                 />
               </div>
-              <div className="grid grid-cols-3 items-center">
+              <div className="grid grid-cols-3 items-center w-full max-w-sm">
                 <p>الايام المتاحة:</p>
                 <Checkbox
                   name="days"
@@ -272,25 +305,23 @@ function AddTarheel() {
                   text="الخميس"
                 />
               </div>
+              {step === 3 && (
+                <>
+                  <button
+                    type="submit"
+                    className="bg-primary mt-3 rounded-md px-8 pb-2 text-lg hover:bg-purple-900 transition-all"
+                  >
+                    اكمال
+                  </button>
+                  <h5
+                    className="py-3 text-primary cursor-pointer hover:text-purple-900"
+                    onClick={back}
+                  >
+                    رجوع
+                  </h5>
+                </>
+              )}
             </div>
-            {step !== 3 ? (
-              <Button label="متابعة" onClick={nextStep} />
-            ) : (
-              <button
-                type="submit"
-                className="bg-primary mt-3 rounded-md px-8 pb-2 text-lg hover:bg-purple-900 transition-all"
-              >
-                ارسال
-              </button>
-            )}
-            {step !== 1 && (
-              <h5
-                className="py-3 text-primary cursor-pointer hover:text-purple-900"
-                onClick={back}
-              >
-                رجوع
-              </h5>
-            )}
           </Form>
         )}
       </Formik>
