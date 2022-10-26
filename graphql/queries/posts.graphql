@@ -11,5 +11,11 @@ query Posts {
     departure
     arrival
     days
+    user {
+      name
+      dep
+      batch
+      address
+    }
   }
 }

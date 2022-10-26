@@ -11,5 +11,13 @@ query Post($id: Float!) {
     departure
     arrival
     days
+    user {
+      id
+      name
+      dep
+      batch
+      mobile
+      address
+    }
   }
 }

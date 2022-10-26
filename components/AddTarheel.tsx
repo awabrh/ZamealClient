@@ -6,7 +6,6 @@ import {
   useCreatePostMutation,
   useRegisterMutation,
 } from "../generated/graphql";
-import { Batch, Day, EngineeringDep, Gender } from "../utils/types";
 import Button from "./Button";
 import Checkbox from "./Checkbox";
 import Select from "./Select";
@@ -192,9 +191,8 @@ function AddTarheel() {
         onSubmit={(values) => {
           createPost({
             ...values,
-            numberOfSeats: values.numberOfSeats as number,
+            numberOfSeats: parseInt(values.numberOfSeats.toString()),
           });
-          console.log(values);
         }}
       >
         {({ values, handleChange }) => (
