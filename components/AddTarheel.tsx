@@ -112,6 +112,7 @@ function AddTarheel() {
       <Formik
         initialValues={registerInitialValues}
         onSubmit={(values) => {
+          register({ ...values, mobile: values.mobile.toString() });
           console.log(values);
           nextStep();
         }}
