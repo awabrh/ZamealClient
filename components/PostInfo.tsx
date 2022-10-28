@@ -1,16 +1,18 @@
 import React from "react";
 import InfoCard from "./InfoCard";
 import carImage from "../assets/carImage.jpg";
-import { Post } from "../generated/graphql";
+import { Post, PostQuery } from "../generated/graphql";
 
 type PostInfoProps = {
-  post: Post;
+  postQuery: PostQuery;
 };
 
-const PostInfo: React.FC<PostInfoProps> = ({ post }) => {
-  const ac = post.isAcWorking ? "يعمل" : "لا يعمل";
+const PostInfo: React.FC<PostInfoProps> = ({ postQuery }) => {
+  const post = postQuery.post!;
+  const ac = post ? "يعمل" : "لا يعمل";
+  const creator = post.user;
 
-  const driverInfo = ["محمد وليد", "الرياض مربع 6", "0912345678"];
+  const driverInfo = [creator.name, creator.address, creator.mobile];
   const carInfo = [post.carModel, `${post.numberOfSeats}`, ac];
   const tarheelInfo = [
     `${post.departure} - ${post.arrival}`,

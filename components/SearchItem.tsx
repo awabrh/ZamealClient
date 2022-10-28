@@ -10,7 +10,6 @@ type SearchItemProps = {
 const SearchItem: React.FC<SearchItemProps> = ({ post }) => {
   const router = useRouter();
   const creator = post.user;
-  console.log(creator);
 
   return (
     <div className=" flex flex-col justify-center items-center justify-self-center w-full">

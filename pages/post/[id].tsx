@@ -24,7 +24,7 @@ const Post: NextPage<{ id: string }> = ({ id }) => {
       ) : (
         <>
           {data?.post ? (
-            <PostInfo post={data.post} />
+            <PostInfo postQuery={data} />
           ) : (
             <div className="flex flex-col w-full h-96 mt-32 items-center">
               <h2 className="text-4xl font-bold">ياللاحراج !</h2>
