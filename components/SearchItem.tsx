@@ -2,6 +2,8 @@ import React from "react";
 import carImage from "../assets/carImage.jpg";
 import { Post } from "../generated/graphql";
 import { useRouter } from "next/router";
+import { AdvancedImage } from "@cloudinary/react";
+import { getImage } from "../utils/getImage";
 
 type SearchItemProps = {
   post: Post;
@@ -10,13 +12,14 @@ type SearchItemProps = {
 const SearchItem: React.FC<SearchItemProps> = ({ post }) => {
   const router = useRouter();
   const creator = post.user;
+  const imgUrl = getImage(post.imageId);
 
   return (
     <div className=" flex flex-col justify-center items-center justify-self-center w-full">
       <img
-        src={carImage.src}
         className="h-52 w-full object-cover rounded-lg hover:cursor-pointer"
         onClick={() => router.push(`/post/${post.id}`)}
+        src={imgUrl}
       />
       <div className="w-full flex justify-between pt-3">
         <h4 className="font-bold">{`${post.price} جنيه / للراكب`}</h4>

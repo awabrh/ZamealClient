@@ -221,12 +221,12 @@ export type PostQueryVariables = Exact<{
 }>;
 
 
-export type PostQuery = { __typename?: 'Query', post?: { __typename?: 'Post', id: number, createdAt: string, updatedAt: string, carModel: string, numberOfSeats: number, isAcWorking: boolean, locations: string, price: number, departure: string, arrival: string, days: string, user: { __typename?: 'User', id: number, name: string, dep: string, batch: string, mobile: string, address: string } } | null };
+export type PostQuery = { __typename?: 'Query', post?: { __typename?: 'Post', id: number, createdAt: string, updatedAt: string, carModel: string, imageId: string, numberOfSeats: number, isAcWorking: boolean, locations: string, price: number, departure: string, arrival: string, days: string, user: { __typename?: 'User', id: number, name: string, dep: string, batch: string, mobile: string, address: string } } | null };
 
 export type PostsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type PostsQuery = { __typename?: 'Query', posts: Array<{ __typename?: 'Post', id: number, createdAt: string, updatedAt: string, carModel: string, numberOfSeats: number, isAcWorking: boolean, locations: string, price: number, departure: string, arrival: string, days: string, user: { __typename?: 'User', name: string, dep: string, batch: string, address: string } }> };
+export type PostsQuery = { __typename?: 'Query', posts: Array<{ __typename?: 'Post', id: number, createdAt: string, updatedAt: string, imageId: string, carModel: string, numberOfSeats: number, isAcWorking: boolean, locations: string, price: number, departure: string, arrival: string, days: string, user: { __typename?: 'User', name: string, dep: string, batch: string, address: string } }> };
 
 export const RegularErrorFragmentDoc = gql`
     fragment RegularError on FieldError {
@@ -342,6 +342,7 @@ export const PostDocument = gql`
     createdAt
     updatedAt
     carModel
+    imageId
     numberOfSeats
     isAcWorking
     locations
@@ -370,6 +371,7 @@ export const PostsDocument = gql`
     id
     createdAt
     updatedAt
+    imageId
     carModel
     numberOfSeats
     isAcWorking

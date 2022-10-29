@@ -2,6 +2,7 @@ import React from "react";
 import InfoCard from "./InfoCard";
 import carImage from "../assets/carImage.jpg";
 import { Post, PostQuery } from "../generated/graphql";
+import { getImage } from "../utils/getImage";
 
 type PostInfoProps = {
   postQuery: PostQuery;
@@ -26,7 +27,7 @@ const PostInfo: React.FC<PostInfoProps> = ({ postQuery }) => {
     <div className="grid grid-cols-1 md:grid-cols-2 p-4 gap-10 md:items-center ">
       <div className="flex flex-col items-center w-full">
         <img
-          src={carImage.src}
+          src={getImage(post.imageId)}
           className="h-52 w-full object-cover rounded-lg md:w-96"
         />
         <div className="w-full md:w-96 flex justify-between md:py-5">

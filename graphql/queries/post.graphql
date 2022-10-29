@@ -4,6 +4,7 @@ query Post($id: Float!) {
     createdAt
     updatedAt
     carModel
+    imageId
     numberOfSeats
     isAcWorking
     locations
