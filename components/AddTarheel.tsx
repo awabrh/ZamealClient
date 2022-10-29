@@ -1,5 +1,5 @@
 import { Form, Formik } from "formik";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import {
   CreatePostMutationVariables,
   FullRegisterInput,
@@ -11,6 +11,8 @@ import Checkbox from "./Checkbox";
 import Select from "./Select";
 import StepIndicator from "./StepIndicator";
 import TextField from "./TextField";
+import { useDropzone } from "react-dropzone";
+import { uploadImage } from "../utils/uploadImage";
 
 type visisbility = "hidden" | "";
 
@@ -43,6 +45,23 @@ const TarheelInitialValues: CreatePostMutationVariables = {
 };
 
 function AddTarheel() {
+  //--------------------------------------------------------------------------------------
+  const [image, setImage] = useState<File>();
+  const [imageText, setImageText] = useState("اضغط هنا لرفع صورة للسيارة");
+  const onDrop = useCallback((acceptedFiles: File[]) => {
+    const file = acceptedFiles[0];
+    setImage(file);
+  }, []);
+
+  const { getInputProps, getRootProps, isDragActive } = useDropzone({
+    onDrop: onDrop,
+    accept: {
+      "image/*": [],
+    },
+  });
+
+  //--------------------------------------------------------------------------------------
+
   const [step, setStep] = useState<1 | 2 | 3>(1);
   const [, register] = useRegisterMutation();
   const [, createPost] = useCreatePostMutation();
@@ -54,6 +73,8 @@ function AddTarheel() {
   });
 
   const nextStep = () => {
+    image ? uploadImage(image) : null;
+
     if (step === 1) {
       setStep(2);
       setSteps({
@@ -200,6 +221,19 @@ function AddTarheel() {
             <div
               className={`${steps.step2} w-full flex flex-col gap-3 items-center pt-10`}
             >
+              <div
+                {...getRootProps({
+                  className:
+                    "flex h-20 w-max items-center border-[1px] px-4 cursor-pointer",
+                })}
+              >
+                <input {...getInputProps()} />
+                {image ? (
+                  <p>{image.name}</p>
+                ) : (
+                  <p>اضغط هنا لرفع صورة للسيارة</p>
+                )}
+              </div>
               <TextField
                 name="carModel"
                 label="موديل المركبة"
