@@ -1,8 +1,6 @@
-import React from "react";
-import carImage from "../assets/carImage.jpg";
-import { Post } from "../generated/graphql";
 import { useRouter } from "next/router";
-import { AdvancedImage } from "@cloudinary/react";
+import React from "react";
+import { Post } from "../generated/graphql";
 import { getImage } from "../utils/getImage";
 
 type SearchItemProps = {

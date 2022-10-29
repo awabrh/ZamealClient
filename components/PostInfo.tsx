@@ -1,7 +1,6 @@
 import React from "react";
 import InfoCard from "./InfoCard";
-import carImage from "../assets/carImage.jpg";
-import { Post, PostQuery } from "../generated/graphql";
+import { PostQuery } from "../generated/graphql";
 import { getImage } from "../utils/getImage";
 
 type PostInfoProps = {
