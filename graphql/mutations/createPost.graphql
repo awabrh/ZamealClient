@@ -1,6 +1,7 @@
 mutation CreatePost(
   $arrival: String!
   $carModel: String!
+  $imageId: String!
   $days: [String!]!
   $departure: String!
   $isAcWorking: Boolean!
@@ -10,14 +11,15 @@ mutation CreatePost(
 ) {
   createPost(
     formInput: {
-      arrival: $arrival
+      imageId: $imageId
       carModel: $carModel
-      days: $days
-      departure: $departure
+      numberOfSeats: $numberOfSeats
       isAcWorking: $isAcWorking
       locations: $locations
-      numberOfSeats: $numberOfSeats
       price: $price
+      arrival: $arrival
+      departure: $departure
+      days: $days
     }
   ) {
     id

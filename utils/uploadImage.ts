@@ -1,12 +1,4 @@
-import { Cloudinary } from "@cloudinary/url-gen";
 import axios from "axios";
-import { responsePathAsArray } from "graphql";
-
-const cld = new Cloudinary({
-  cloud: {
-    cloudName: "dqws5t0at",
-  },
-});
 
 export const uploadImage = async (image: File): Promise<string | null> => {
   const formData = new FormData();

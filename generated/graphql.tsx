@@ -20,6 +20,7 @@ export type AddTarheelInput = {
   carModel: Scalars['String'];
   days: Array<Scalars['String']>;
   departure: Scalars['String'];
+  imageId: Scalars['String'];
   isAcWorking: Scalars['Boolean'];
   locations: Scalars['String'];
   numberOfSeats: Scalars['Float'];
@@ -104,6 +105,7 @@ export type Post = {
   days: Scalars['String'];
   departure: Scalars['String'];
   id: Scalars['Int'];
+  imageId: Scalars['String'];
   isAcWorking: Scalars['Boolean'];
   locations: Scalars['String'];
   numberOfSeats: Scalars['Int'];
@@ -163,6 +165,7 @@ export type ChangePasswordMutation = { __typename?: 'Mutation', changePassword: 
 export type CreatePostMutationVariables = Exact<{
   arrival: Scalars['String'];
   carModel: Scalars['String'];
+  imageId: Scalars['String'];
   days: Array<Scalars['String']> | Scalars['String'];
   departure: Scalars['String'];
   isAcWorking: Scalars['Boolean'];
@@ -260,9 +263,9 @@ export function useChangePasswordMutation() {
   return Urql.useMutation<ChangePasswordMutation, ChangePasswordMutationVariables>(ChangePasswordDocument);
 };
 export const CreatePostDocument = gql`
-    mutation CreatePost($arrival: String!, $carModel: String!, $days: [String!]!, $departure: String!, $isAcWorking: Boolean!, $locations: String!, $numberOfSeats: Float!, $price: Float!) {
+    mutation CreatePost($arrival: String!, $carModel: String!, $imageId: String!, $days: [String!]!, $departure: String!, $isAcWorking: Boolean!, $locations: String!, $numberOfSeats: Float!, $price: Float!) {
   createPost(
-    formInput: {arrival: $arrival, carModel: $carModel, days: $days, departure: $departure, isAcWorking: $isAcWorking, locations: $locations, numberOfSeats: $numberOfSeats, price: $price}
+    formInput: {imageId: $imageId, carModel: $carModel, numberOfSeats: $numberOfSeats, isAcWorking: $isAcWorking, locations: $locations, price: $price, arrival: $arrival, departure: $departure, days: $days}
   ) {
     id
   }

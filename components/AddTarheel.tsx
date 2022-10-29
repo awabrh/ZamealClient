@@ -34,6 +34,7 @@ const registerInitialValues: FullRegisterInput = {
 };
 
 const TarheelInitialValues: CreatePostMutationVariables = {
+  imageId: "",
   carModel: "",
   numberOfSeats: 4,
   isAcWorking: false,
@@ -47,6 +48,7 @@ const TarheelInitialValues: CreatePostMutationVariables = {
 function AddTarheel() {
   //--------------------------------------------------------------------------------------
   const [image, setImage] = useState<File>();
+  const [imageId, setImageId] = useState<string>("");
   const [imageText, setImageText] = useState("اضغط هنا لرفع صورة للسيارة");
   const onDrop = useCallback((acceptedFiles: File[]) => {
     const file = acceptedFiles[0];
@@ -72,8 +74,19 @@ function AddTarheel() {
     step3: "hidden",
   });
 
-  const nextStep = () => {
-    image ? uploadImage(image) : null;
+  const nextStep = async () => {
+    if (!image) {
+      // handle empty image
+    } else {
+      const id = await uploadImage(image);
+      if (!id) {
+        // handle failed uplaod
+      } else {
+        setImageId(id);
+      }
+    }
+
+    console.log(imageId);
 
     if (step === 1) {
       setStep(2);
@@ -213,6 +226,7 @@ function AddTarheel() {
           createPost({
             ...values,
             numberOfSeats: parseInt(values.numberOfSeats.toString()),
+            imageId: imageId,
           });
         }}
       >
@@ -227,7 +241,7 @@ function AddTarheel() {
                     "flex h-20 w-max items-center border-[1px] px-4 cursor-pointer",
                 })}
               >
-                <input {...getInputProps()} />
+                <input {...getInputProps({})} />
                 {image ? (
                   <p>{image.name}</p>
                 ) : (
@@ -257,7 +271,9 @@ function AddTarheel() {
                 text="هل يعمل المكيف ؟"
                 onChange={handleChange}
               />
-              {step === 2 && <Button label="متابعة" onClick={nextStep} />}
+              {step === 2 && (
+                <Button label="متابعة" onClick={nextStep} type="button" />
+              )}
             </div>
 
             {/* ---------------------------------------step 3--------------------------------------- */}

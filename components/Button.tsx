@@ -1,20 +1,19 @@
-import React from "react";
+import React, { ButtonHTMLAttributes } from "react";
 
-interface ButtonProps {
-    label? : string
-    onClick? : React.MouseEventHandler<HTMLButtonElement>
-}
+type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
+  type: "submit" | "reset" | "button";
+  label?: string;
+};
 
-function Button({label , onClick} : ButtonProps ) {
-
+const Button: React.FC<ButtonProps> = ({ label, ...props }) => {
   return (
     <button
+      {...props}
       className="bg-primary mt-3 rounded-md px-8 pb-2 text-lg hover:bg-purple-900 transition-all"
-      onClick={onClick}
     >
       {label}
     </button>
   );
-}
+};
 
 export default Button;
