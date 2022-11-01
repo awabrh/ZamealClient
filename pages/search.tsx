@@ -5,7 +5,6 @@ import SearchItem from "../components/SearchItem";
 import { usePostsQuery } from "../generated/graphql";
 import { withUrqlClient } from "next-urql";
 import { createUrqlClient } from "../utils/createUrqlClient";
-import next, { NextPage } from "next";
 import { useRouter } from "next/router";
 
 const search: React.FC = () => {
