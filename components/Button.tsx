@@ -9,7 +9,7 @@ const Button: React.FC<ButtonProps> = ({ label, ...props }) => {
   return (
     <button
       {...props}
-      className="bg-primary mt-3 rounded-md px-8 pb-2 text-lg hover:bg-purple-900 transition-all"
+      className="bg-primary rounded-md px-8 pb-2 text-lg hover:bg-purple-900 transition-all"
     >
       {label}
     </button>

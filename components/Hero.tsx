@@ -22,10 +22,7 @@ function Hero() {
             noValidate
             onSubmit={handleSubmit}
           >
-            <SearchBar
-              onChange={(e) => setSearchInput(e.target.value)}
-              value={searchInput}
-            />
+            <SearchBar />
 
             <button
               type="submit"

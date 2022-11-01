@@ -2,9 +2,10 @@ import { useRouter } from "next/router";
 import React from "react";
 import { Post } from "../generated/graphql";
 import { getImage } from "../utils/getImage";
+import { SearchItemPost } from "../utils/types";
 
 type SearchItemProps = {
-  post: Post;
+  post: Post | SearchItemPost;
 };
 
 const SearchItem: React.FC<SearchItemProps> = ({ post }) => {
