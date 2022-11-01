@@ -1,7 +1,9 @@
 import React from "react";
 import SearchBar from "./SearchBar";
+import { useRouter } from "next/router";
 
 function Hero() {
+  const router = useRouter();
   return (
     <div
       className="flex flex-col w-full justify-center items-center h-5/6"
@@ -18,8 +20,11 @@ function Hero() {
           </div>
         </div>
         <p className="my-8 text-sm">أو</p>
-        <button className="border-primary bg-black border-2 px-5 pb-3 pt-2 rounded-md hover:bg-primary transition-all duration-300">
-          أضيف ترحيلك
+        <button
+          className="border-primary bg-black border-2 px-5 pb-3 pt-2 rounded-md hover:bg-primary transition-all duration-300"
+          onClick={() => router.push("/add")}
+        >
+          أضف ترحيلك
         </button>
       </div>
     </div>
