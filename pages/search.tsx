@@ -8,18 +8,19 @@ import { createUrqlClient } from "../utils/createUrqlClient";
 import { useRouter } from "next/router";
 
 const search: React.FC = () => {
-  const [{ data }] = usePostsQuery();
   const router = useRouter();
   const { query } = router.query;
+  const [{ data }] = usePostsQuery({
+    variables: { location: query as string },
+  });
 
   return (
     <div className="bg-black h-screen text-white" dir="rtl">
       <Navbar />
       <div className="">
         <div className="pt-3 pb-10">
-          <SearchBar withSubmit={true} />
+          <SearchBar sameRow={true} />
         </div>
-        <div>{query}</div>
         <div className=" py-1 px-4 grid justify-center gap-y-8 gap-x-8  double:grid-cols-2 grid-cols-1 triple:grid-cols-3 xl:grid-cols-4  w-full ">
           {!data
             ? null

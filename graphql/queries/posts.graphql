@@ -1,5 +1,5 @@
-query Posts {
-  posts {
+query Posts($location: String) {
+  posts(location: $location) {
     id
     createdAt
     updatedAt
@@ -13,6 +13,7 @@ query Posts {
     arrival
     days
     user {
+      id
       name
       dep
       batch

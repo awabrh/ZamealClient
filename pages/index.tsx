@@ -1,7 +1,6 @@
 import React from "react";
 import Hero from "../components/Hero";
 import Navbar from "../components/Navbar";
-import styles from "../styles/index";
 import { withUrqlClient } from "next-urql";
 import { createUrqlClient } from "../utils/createUrqlClient";
 

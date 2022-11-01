@@ -1,25 +1,25 @@
-import { Formik, Form } from "formik";
-import router from "next/router";
-import React from "react";
+import { Form, Formik } from "formik";
+import { useRouter } from "next/router";
 import { FiSearch } from "react-icons/fi";
-import login from "../pages/login";
-import search from "../pages/search";
-import { toErrorMap } from "../utils/toErrorMap";
 import Button from "./Button";
-import TextField from "./TextField";
 
 interface searchProps {
-  withSubmit?: Boolean;
+  sameRow?: Boolean;
 }
 
-function SearchBar({ withSubmit }: searchProps) {
+function SearchBar({ sameRow }: searchProps) {
+  const router = useRouter();
+  const layout = sameRow ? "flex-row-reverse" : "flex-col gap-4";
+
   return (
     <Formik
       initialValues={{ search: "" }}
-      onSubmit={async (values, { setErrors }) => {}}
+      onSubmit={async (values) => {
+        router.push(`/search?query=${values.search}`);
+      }}
     >
       {({ values, handleChange }) => (
-        <Form className="flex justify-center flex-row-reverse items-center">
+        <Form className={`flex justify-center ${layout} items-center`}>
           <div className="pr-4 flex justify-center" dir="ltr">
             <FiSearch
               size={20}
@@ -35,7 +35,7 @@ function SearchBar({ withSubmit }: searchProps) {
               dir="rtl"
             />
           </div>
-          {withSubmit ? <Button label="بحث" type="submit"></Button> : null}
+          <Button label="بحث" type="submit"></Button>
         </Form>
       )}
     </Formik>

@@ -1,11 +1,7 @@
-import React, { useState } from "react";
-import { FiSearch } from "react-icons/fi";
+import React from "react";
 import SearchBar from "./SearchBar";
 
 function Hero() {
-  const [searchInput, setSearchInput] = useState("");
-  const handleSubmit = () => {};
-
   return (
     <div
       className="flex flex-col w-full justify-center items-center h-5/6"
@@ -17,20 +13,9 @@ function Hero() {
           <h1 className="font-bold text-5xl">ما تشيل هم!</h1>
         </div>
         <div className="w-full flex justify-center">
-          <form
-            className="w-full flex flex-col items-center"
-            noValidate
-            onSubmit={handleSubmit}
-          >
+          <div className="w-full flex flex-col items-center">
             <SearchBar />
-
-            <button
-              type="submit"
-              className="bg-primary mt-3 rounded-md px-8 pb-2 text-lg hover:bg-purple-900 transition-all"
-            >
-              بحث
-            </button>
-          </form>
+          </div>
         </div>
         <p className="my-8 text-sm">أو</p>
         <button className="border-primary bg-black border-2 px-5 pb-3 pt-2 rounded-md hover:bg-primary transition-all duration-300">
