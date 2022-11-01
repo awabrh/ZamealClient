@@ -5,9 +5,13 @@ import SearchItem from "../components/SearchItem";
 import { usePostsQuery } from "../generated/graphql";
 import { withUrqlClient } from "next-urql";
 import { createUrqlClient } from "../utils/createUrqlClient";
+import next, { NextPage } from "next";
+import { useRouter } from "next/router";
 
-function search() {
+const search: React.FC = () => {
   const [{ data }] = usePostsQuery();
+  const router = useRouter();
+  const { query } = router.query;
 
   return (
     <div className="bg-black h-screen text-white" dir="rtl">
@@ -16,6 +20,7 @@ function search() {
         <div className="pt-3 pb-10">
           <SearchBar withSubmit={true} />
         </div>
+        <div>{query}</div>
         <div className=" py-1 px-4 grid justify-center gap-y-8 gap-x-8  double:grid-cols-2 grid-cols-1 triple:grid-cols-3 xl:grid-cols-4  w-full ">
           {!data
             ? null
@@ -26,6 +31,6 @@ function search() {
       </div>
     </div>
   );
-}
+};
 
 export default withUrqlClient(createUrqlClient)(search);
