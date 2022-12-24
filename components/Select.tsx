@@ -7,7 +7,7 @@ type SelectProps = SelectHTMLAttributes<HTMLSelectElement> & {
 };
 
 const Select: React.FC<SelectProps> = ({ children, label, ...props }) => {
-  const [field, { error }] = useField(props);
+  const [field] = useField(props);
 
   return (
     <div className="w-full max-w-sm ">

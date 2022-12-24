@@ -49,13 +49,13 @@ function AddTarheel() {
   //--------------------------------------------------------------------------------------
   const [image, setImage] = useState<File>();
   const [imageId, setImageId] = useState<string>("");
-  const [imageText, setImageText] = useState("اضغط هنا لرفع صورة للسيارة");
+  // const [imageText, setImageText] = useState("اضغط هنا لرفع صورة للسيارة");
   const onDrop = useCallback((acceptedFiles: File[]) => {
     const file = acceptedFiles[0];
     setImage(file);
   }, []);
 
-  const { getInputProps, getRootProps, isDragActive } = useDropzone({
+  const { getInputProps, getRootProps } = useDropzone({
     onDrop: onDrop,
     accept: {
       "image/*": [],

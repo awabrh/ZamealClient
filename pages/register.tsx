@@ -19,7 +19,16 @@ function register() {
         <div className="flex flex-col items-center gap-6 p-4">
           <h2 className="text-4xl font-bold pb-6">تسجيل حساب جديد</h2>
           <Formik
-            initialValues={{ email: "", password: "" }}
+            initialValues={{
+              email: "",
+              password: "",
+              name: "",
+              address: "",
+              mobile: "",
+              dep: "",
+              batch: "",
+              gender: "",
+            }}
             onSubmit={async (values, { setErrors }) => {
               console.log(values);
               const response = await register(values);
