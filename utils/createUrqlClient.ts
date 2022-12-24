@@ -10,7 +10,7 @@ import { cacheExchange } from "@urql/exchange-graphcache";
 import { betterUpdateQuery } from "./betterUpdateQuery";
 
 export const createUrqlClient = (ssrExchange: Exchange) => ({
-  url: process.env.SERVER_URL as string,
+  url: "https://zamealserver.onrender.com/graphql",
   fetchOptions: {
     credentials: "include" as const,
   },
