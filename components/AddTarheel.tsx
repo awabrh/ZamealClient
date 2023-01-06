@@ -13,7 +13,8 @@ import StepIndicator from "./StepIndicator";
 import TextField from "./TextField";
 import { useDropzone } from "react-dropzone";
 import { uploadImage } from "../utils/uploadImage";
-
+import { SignupSchema } from "../utils/formValidation";
+import { toErrorMap } from "../utils/toErrorMap";
 type visisbility = "hidden" | "";
 
 interface StepsVisibility {
@@ -33,7 +34,7 @@ const registerInitialValues: FullRegisterInput = {
   password: "",
 };
 
-const TarheelInitialValues: CreatePostMutationVariables = {
+const tarheelInitialValues: CreatePostMutationVariables = {
   imageId: "",
   carModel: "",
   numberOfSeats: 4,
@@ -49,7 +50,6 @@ function AddTarheel() {
   //--------------------------------------------------------------------------------------
   const [image, setImage] = useState<File>();
   const [imageId, setImageId] = useState<string>("");
-  // const [imageText, setImageText] = useState("اضغط هنا لرفع صورة للسيارة");
   const onDrop = useCallback((acceptedFiles: File[]) => {
     const file = acceptedFiles[0];
     setImage(file);
@@ -127,13 +127,22 @@ function AddTarheel() {
       <h2 className="text-4xl font-bold pb-6">إضافة ترحيل</h2>
       <StepIndicator step={step} />
 
+      {/* ---------------------------------------step 1--------------------------------------- */}
       <Formik
         initialValues={registerInitialValues}
-        onSubmit={(values) => {
-          register({ ...values, mobile: values.mobile.toString() });
-          console.log(values);
-          nextStep();
+        onSubmit={async (values, { setErrors }) => {
+          const response = await register({
+            ...values,
+            mobile: values.mobile.toString(),
+          });
+          if (response.data?.register.errors) {
+            await setErrors(toErrorMap(response.data.register.errors));
+          } else {
+            console.log(values);
+            nextStep();
+          }
         }}
+        validationSchema={SignupSchema}
       >
         {({ values, handleChange }) => (
           <Form className="">
@@ -221,7 +230,7 @@ function AddTarheel() {
 
       {/* ---------------------------------------step 2--------------------------------------- */}
       <Formik
-        initialValues={TarheelInitialValues}
+        initialValues={tarheelInitialValues}
         onSubmit={(values) => {
           createPost({
             ...values,
