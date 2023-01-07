@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../../components/Navbar";
 import PostInfo from "../../components/PostInfo";
 import { withUrqlClient } from "next-urql";
 import { createUrqlClient } from "../../utils/createUrqlClient";
 import { NextPage } from "next";
-import { usePostQuery } from "../../generated/graphql";
+import { useMeQuery, usePostQuery } from "../../generated/graphql";
 
 const Post: NextPage<{ id: string }> = ({ id }) => {
   let numberId;
@@ -13,7 +13,24 @@ const Post: NextPage<{ id: string }> = ({ id }) => {
   } catch (error) {
     numberId = 0;
   }
+  const [isServer, setIsServer] = useState(true);
+  useEffect(() => {
+    setIsServer(false);
+  });
+
   const [{ data, fetching }] = usePostQuery({ variables: { id: numberId } });
+  const [{ data: meQuery }] = useMeQuery({
+    pause: isServer,
+  });
+
+  let showDelete;
+
+  if (meQuery?.me && meQuery.me.post?.id.toString() === id) {
+    showDelete = true;
+  } else {
+    showDelete = false;
+  }
+
   return (
     <div dir="rtl">
       <Navbar />
@@ -24,7 +41,7 @@ const Post: NextPage<{ id: string }> = ({ id }) => {
       ) : (
         <>
           {data?.post ? (
-            <PostInfo postQuery={data} />
+            <PostInfo postQuery={data} showDelete={showDelete} />
           ) : (
             <div className="flex flex-col w-full h-96 mt-32 items-center">
               <h2 className="text-4xl font-bold">ياللاحراج !</h2>

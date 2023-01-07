@@ -1,16 +1,30 @@
 import React from "react";
 import InfoCard from "./InfoCard";
-import { PostQuery } from "../generated/graphql";
+import { PostQuery, useDeletePostMutation } from "../generated/graphql";
 import { getImage } from "../utils/getImage";
+import { useRouter } from "next/router";
 
 type PostInfoProps = {
   postQuery: PostQuery;
+  showDelete: Boolean;
 };
 
-const PostInfo: React.FC<PostInfoProps> = ({ postQuery }) => {
+const PostInfo: React.FC<PostInfoProps> = ({ postQuery, showDelete }) => {
   const post = postQuery.post!;
   const ac = post ? "يعمل" : "لا يعمل";
   const creator = post.user;
+  const router = useRouter();
+
+  const [, deleteMutation] = useDeletePostMutation();
+
+  const deletePost = async () => {
+    const response = await deleteMutation({ id: post.id });
+    if (response.data?.deletePost) {
+      router.push("/");
+    } else {
+      router.push("/post/0");
+    }
+  };
 
   const driverInfo = [creator.name, creator.address, creator.mobile];
   const carInfo = [post.carModel, `${post.numberOfSeats}`, ac];
@@ -42,6 +56,15 @@ const PostInfo: React.FC<PostInfoProps> = ({ postQuery }) => {
         />
         <InfoCard type="car" values={carInfo} className="justify-self-center" />
         <InfoCard type="tarheel" values={tarheelInfo} />
+        {showDelete && (
+          <button
+            type="button"
+            className="border-red-600 border-2 rounded-md px-8 pb-2 text-lg hover:bg-red-600 transition-all w-full md:w-96"
+            onClick={deletePost}
+          >
+            حذف
+          </button>
+        )}
       </div>
     </div>
   );

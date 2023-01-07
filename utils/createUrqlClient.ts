@@ -5,6 +5,8 @@ import {
   MeDocument,
   LoginMutation,
   RegisterMutation,
+  DeletePostMutation,
+  CreatePostMutation,
 } from "../generated/graphql";
 import { cacheExchange } from "@urql/exchange-graphcache";
 import { betterUpdateQuery } from "./betterUpdateQuery";
@@ -12,7 +14,7 @@ import { betterUpdateQuery } from "./betterUpdateQuery";
 const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL;
 
 export const createUrqlClient = (ssrExchange: Exchange) => ({
-  url: serverUrl,
+  url: serverUrl as string,
   fetchOptions: {
     credentials: "include" as const,
   },
@@ -59,6 +61,50 @@ export const createUrqlClient = (ssrExchange: Exchange) => ({
                     me: {
                       ...result.register.user,
                     },
+                  };
+                }
+              }
+            );
+          },
+
+          deletePost: (_result, _args, cache, _info) => {
+            betterUpdateQuery<DeletePostMutation, MeQuery>(
+              cache,
+              { query: MeDocument },
+              _result,
+              (result, query) => {
+                if (result.deletePost && query.me) {
+                  return {
+                    me: {
+                      ...query.me,
+                      post: null,
+                    },
+                  };
+                } else {
+                  return {
+                    me: query.me,
+                  };
+                }
+              }
+            );
+          },
+
+          createPost: (_result, _args, cache, _info) => {
+            betterUpdateQuery<CreatePostMutation, MeQuery>(
+              cache,
+              { query: MeDocument },
+              _result,
+              (result, query) => {
+                if (result.createPost && query.me) {
+                  return {
+                    me: {
+                      ...query.me,
+                      post: result.createPost,
+                    },
+                  };
+                } else {
+                  return {
+                    me: query.me,
                   };
                 }
               }
