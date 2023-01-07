@@ -3,6 +3,7 @@ import InfoCard from "./InfoCard";
 import { PostQuery, useDeletePostMutation } from "../generated/graphql";
 import { getImage } from "../utils/getImage";
 import { useRouter } from "next/router";
+import { timeSince } from "../utils/elapsedTime";
 
 type PostInfoProps = {
   postQuery: PostQuery;
@@ -34,7 +35,7 @@ const PostInfo: React.FC<PostInfoProps> = ({ postQuery, showDelete }) => {
     post.locations,
   ];
   const price = `${post.price} جنيه / للراكب`;
-  const timeLapsed = "قبل 3 أسابيع";
+  const timeLapsed = timeSince(post.createdAt);
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 p-4 gap-10 md:items-center ">

@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import React from "react";
 import { Post } from "../generated/graphql";
+import { timeSince } from "../utils/elapsedTime";
 import { getImage } from "../utils/getImage";
 import { SearchItemPost } from "../utils/types";
 
@@ -22,7 +23,7 @@ const SearchItem: React.FC<SearchItemProps> = ({ post }) => {
       />
       <div className="w-full flex justify-between pt-3">
         <h4 className="font-bold">{`${post.price} جنيه / للراكب`}</h4>
-        <h6 className="font-light">قبل 3 أسابيع</h6>
+        <h6 className="font-light">{timeSince(post.createdAt)}</h6>
       </div>
       <div className="w-full font-light text-sm">
         <p>{`${creator?.name} - ${creator?.dep} - ${creator?.batch} `}</p>
