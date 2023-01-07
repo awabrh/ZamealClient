@@ -44,13 +44,13 @@ function InfoCard({ type, values, className }: InfoCardProps) {
           <p className=" col-span-7">{values[1]}</p>
           <p className="font-bold col-span-4">{labels[2]}</p>
           <p className="">:</p>
-          {type === "driver" ? (
+          {type === "driver" && contactType === "حساب توتير" ? (
             <a
               className=" col-span-7 text-blue-600"
               href={`https://twitter.com/${values[2]}`}
             >{`🐣${values[2]}`}</a>
           ) : (
-            <p className=" col-span-7">{values[0]}</p>
+            <p className=" col-span-7">{values[2]}</p>
           )}
         </div>
       </div>
