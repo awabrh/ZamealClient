@@ -7,7 +7,7 @@ type CheckboxProps = InputHTMLAttributes<HTMLInputElement> & {
 };
 
 const Checkbox: React.FC<CheckboxProps> = ({ text, ...props }) => {
-  const [field, { error }] = useField(props);
+  const [field] = useField(props);
   return (
     <div className="flex items-center gap-3 py-3">
       <input
@@ -17,7 +17,6 @@ const Checkbox: React.FC<CheckboxProps> = ({ text, ...props }) => {
         className="bg-black text-primary rounded-md h-5 w-5 transition-all"
       />
       <p className="font-light">{text}</p>
-      {error ? <div className="text-red-600">{error}</div> : null}
     </div>
   );
 };

@@ -1,5 +1,5 @@
-import { Form, Formik } from "formik";
-import React, { useCallback, useState } from "react";
+import { ErrorMessage, Form, Formik, FormikErrors } from "formik";
+import React, { useState } from "react";
 import {
   CreatePostMutationVariables,
   FullRegisterInput,
@@ -11,10 +11,12 @@ import Checkbox from "./Checkbox";
 import Select from "./Select";
 import StepIndicator from "./StepIndicator";
 import TextField from "./TextField";
-import { useDropzone } from "react-dropzone";
 import { uploadImage } from "../utils/uploadImage";
-import { SignupSchema } from "../utils/formValidation";
+import { SignupSchema, PostSchema } from "../utils/formValidation";
 import { toErrorMap } from "../utils/toErrorMap";
+import ImageDropzone from "./ImageDropzone";
+import { useRouter } from "next/router";
+
 type visisbility = "hidden" | "";
 
 interface StepsVisibility {
@@ -46,21 +48,15 @@ const tarheelInitialValues: CreatePostMutationVariables = {
   days: [],
 };
 
-function AddTarheel() {
-  //--------------------------------------------------------------------------------------
-  const [image, setImage] = useState<File>();
-  const [imageId, setImageId] = useState<string>("");
-  const onDrop = useCallback((acceptedFiles: File[]) => {
-    const file = acceptedFiles[0];
-    setImage(file);
-  }, []);
+type setErrorFunction = (field: string, message: string | undefined) => void;
+type validateFieldFunction = (field: string) => void;
 
-  const { getInputProps, getRootProps } = useDropzone({
-    onDrop: onDrop,
-    accept: {
-      "image/*": [],
-    },
-  });
+function AddTarheel() {
+  const router = useRouter();
+
+  //--------------------------------------------------------------------------------------
+  const [imageId, setImageId] = useState<string>("");
+  const [image, setImage] = useState<File>();
 
   //--------------------------------------------------------------------------------------
 
@@ -74,18 +70,7 @@ function AddTarheel() {
     step3: "hidden",
   });
 
-  const nextStep = async () => {
-    if (!image) {
-      // handle empty image
-    } else {
-      const id = await uploadImage(image);
-      if (!id) {
-        // handle failed uplaod
-      } else {
-        setImageId(id);
-      }
-    }
-
+  const nextStep = () => {
     console.log(imageId);
 
     if (step === 1) {
@@ -104,6 +89,34 @@ function AddTarheel() {
       });
     }
   };
+
+  const toSecondStep = async (
+    setError: setErrorFunction,
+    validateField: validateFieldFunction,
+    errors: FormikErrors<typeof tarheelInitialValues>
+  ) => {
+    validateField("carModel");
+    validateField("numberOfSeats");
+
+    if (!image) {
+      setError("imageId", "الرجاء تحميل صورة");
+      return;
+    } else {
+      const id = await uploadImage(image);
+      if (!id) {
+        setError("imageId", "حدثت مشكلة في الشبكة");
+        console.log("no internet error");
+        return;
+      } else {
+        setImageId(id);
+      }
+    }
+
+    if (errors.carModel) return;
+
+    nextStep();
+  };
+
   const back = () => {
     if (step === 2) {
       setStep(1);
@@ -231,32 +244,34 @@ function AddTarheel() {
       {/* ---------------------------------------step 2--------------------------------------- */}
       <Formik
         initialValues={tarheelInitialValues}
-        onSubmit={(values) => {
-          createPost({
+        onSubmit={async (values, { setFieldError }) => {
+          const response = await createPost({
             ...values,
             numberOfSeats: parseInt(values.numberOfSeats.toString()),
             imageId: imageId,
           });
+          if (response.error) {
+            setFieldError(
+              "isAcWorking",
+              "يبدو ان هنالك خطأ ، الرجاء المحاولة لاحقاً"
+            );
+          } else {
+            router.push(`/post/${response.data?.createPost.id}`);
+          }
         }}
+        validationSchema={PostSchema}
       >
-        {({ values, handleChange }) => (
+        {({ setFieldError, validateField, errors, values, handleChange }) => (
           <Form className="w-full flex flex-col gap-3 items-center pt-10">
             <div
               className={`${steps.step2} w-full flex flex-col gap-3 items-center pt-10`}
             >
-              <div
-                {...getRootProps({
-                  className:
-                    "flex h-20 w-max items-center border-[1px] px-4 cursor-pointer",
-                })}
-              >
-                <input {...getInputProps({})} />
-                {image ? (
-                  <p>{image.name}</p>
-                ) : (
-                  <p>اضغط هنا لرفع صورة للسيارة</p>
-                )}
-              </div>
+              <ImageDropzone
+                name="imageId"
+                type={"file"}
+                image={image}
+                setImage={setImage}
+              />
               <TextField
                 name="carModel"
                 label="موديل المركبة"
@@ -281,7 +296,13 @@ function AddTarheel() {
                 onChange={handleChange}
               />
               {step === 2 && (
-                <Button label="متابعة" onClick={nextStep} type="button" />
+                <Button
+                  label="متابعة"
+                  onClick={async () =>
+                    await toSecondStep(setFieldError, validateField, errors)
+                  }
+                  type="button"
+                />
               )}
             </div>
 
@@ -351,7 +372,18 @@ function AddTarheel() {
                   value="thursday"
                   text="الخميس"
                 />
+                <ErrorMessage
+                  component="div"
+                  name="days"
+                  className="text-red-600"
+                />
               </div>
+
+              <ErrorMessage
+                component="div"
+                name="isAcWorking"
+                className="text-red-600"
+              />
               {step === 3 && (
                 <>
                   <button
