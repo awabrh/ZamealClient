@@ -50,6 +50,17 @@ function Navbar() {
         >
           تسجيل الخروج
         </div>
+        <li className="hover:text-[#555] hover:cursor-pointer transition-all duration-200">
+          {data.me.post ? (
+            <Link href={`/post/${data.me.post.id}`} suppressHydrationWarning>
+              ترحيلي
+            </Link>
+          ) : (
+            <Link href="/add" suppressHydrationWarning>
+              اضف ترحيلك
+            </Link>
+          )}
+        </li>
       </>
     );
   }
@@ -74,11 +85,6 @@ function Navbar() {
                 </li>
                 {userLinks}
                 <li className="hover:text-[#555] hover:cursor-pointer transition-all duration-200">
-                  <Link href="/add" suppressHydrationWarning>
-                    اضف ترحيلك
-                  </Link>
-                </li>
-                <li className="hover:text-[#555] hover:cursor-pointer transition-all duration-200">
                   <Link href="/about">من نحن؟</Link>
                 </li>
               </ul>
@@ -95,9 +101,6 @@ function Navbar() {
           <div className="hidden md:flex">
             <ul className="flex text-md font-light gap-4">
               {userLinks}
-              <li className="hover:text-[#555] hover:cursor-pointer transition-all duration-200">
-                <Link href="/add"> اضف ترحيلك </Link>
-              </li>
               <li className="hover:text-[#555] hover:cursor-pointer transition-all duration-200">
                 <Link href="/about">من نحن؟</Link>
               </li>

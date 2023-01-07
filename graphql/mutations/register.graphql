@@ -26,7 +26,11 @@ mutation Register(
     }
     user {
       id
+      email
       name
+      post {
+        id
+      }
     }
   }
 }

@@ -52,13 +52,12 @@ export const createUrqlClient = (ssrExchange: Exchange) => ({
               { query: MeDocument },
               _result,
               (result, query) => {
-                if (result.register.errors) {
+                if (!result.register.user) {
                   return query;
                 } else {
                   return {
                     me: {
-                      id: result.register.user?.id!,
-                      email: result.register.user?.name!,
+                      ...result.register.user,
                     },
                   };
                 }

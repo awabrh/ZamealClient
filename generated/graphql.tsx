@@ -143,7 +143,7 @@ export type User = {
   id: Scalars['Int'];
   mobile: Scalars['String'];
   name: Scalars['String'];
-  post: Post;
+  post?: Maybe<Post>;
   updatedAt: Scalars['String'];
 };
 
@@ -155,9 +155,9 @@ export type UserResponse = {
 
 export type RegularErrorFragment = { __typename?: 'FieldError', field: string, message: string };
 
-export type RegularUserFragment = { __typename?: 'User', id: number, email: string };
+export type RegularUserFragment = { __typename?: 'User', id: number, email: string, name: string, post?: { __typename?: 'Post', id: number } | null };
 
-export type RegularUserResponseFragment = { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, user?: { __typename?: 'User', id: number, email: string } | null };
+export type RegularUserResponseFragment = { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, user?: { __typename?: 'User', id: number, email: string, name: string, post?: { __typename?: 'Post', id: number } | null } | null };
 
 export type ChangePasswordMutationVariables = Exact<{
   token: Scalars['String'];
@@ -165,7 +165,7 @@ export type ChangePasswordMutationVariables = Exact<{
 }>;
 
 
-export type ChangePasswordMutation = { __typename?: 'Mutation', changePassword: { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, user?: { __typename?: 'User', id: number, email: string } | null } };
+export type ChangePasswordMutation = { __typename?: 'Mutation', changePassword: { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, user?: { __typename?: 'User', id: number, email: string, name: string, post?: { __typename?: 'Post', id: number } | null } | null } };
 
 export type CreatePostMutationVariables = Exact<{
   arrival: Scalars['String'];
@@ -195,7 +195,7 @@ export type LoginMutationVariables = Exact<{
 }>;
 
 
-export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, user?: { __typename?: 'User', id: number, email: string } | null } };
+export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, user?: { __typename?: 'User', id: number, email: string, name: string, post?: { __typename?: 'Post', id: number } | null } | null } };
 
 export type LogoutMutationVariables = Exact<{ [key: string]: never; }>;
 
@@ -214,12 +214,12 @@ export type RegisterMutationVariables = Exact<{
 }>;
 
 
-export type RegisterMutation = { __typename?: 'Mutation', register: { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, user?: { __typename?: 'User', id: number, name: string } | null } };
+export type RegisterMutation = { __typename?: 'Mutation', register: { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, user?: { __typename?: 'User', id: number, email: string, name: string, post?: { __typename?: 'Post', id: number } | null } | null } };
 
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type MeQuery = { __typename?: 'Query', me?: { __typename?: 'User', id: number, email: string } | null };
+export type MeQuery = { __typename?: 'Query', me?: { __typename?: 'User', id: number, email: string, name: string, post?: { __typename?: 'Post', id: number } | null } | null };
 
 export type PostQueryVariables = Exact<{
   id: Scalars['Float'];
@@ -245,6 +245,10 @@ export const RegularUserFragmentDoc = gql`
     fragment RegularUser on User {
   id
   email
+  name
+  post {
+    id
+  }
 }
     `;
 export const RegularUserResponseFragmentDoc = gql`
@@ -322,7 +326,11 @@ export const RegisterDocument = gql`
     }
     user {
       id
+      email
       name
+      post {
+        id
+      }
     }
   }
 }
