@@ -17,6 +17,7 @@ import { SignupSchema, PostSchema } from "../utils/formValidation";
 import { toErrorMap } from "../utils/toErrorMap";
 import ImageDropzone from "./ImageDropzone";
 import { useRouter } from "next/router";
+import ContactField from "./ContactField";
 
 type visisbility = "hidden" | "";
 
@@ -70,7 +71,7 @@ function AddTarheel() {
   const [{ data }] = useMeQuery({
     pause: isServer,
   });
-  if (data?.me || !data?.me?.post) {
+  if (data?.me && !data?.me?.post) {
     initialStep = 2;
     initialVisibilty = {
       step1: "hidden",
@@ -80,9 +81,9 @@ function AddTarheel() {
   } else {
     initialStep = 1;
     initialVisibilty = {
-      step1: "hidden",
+      step1: "",
       step2: "hidden",
-      step3: "",
+      step3: "hidden",
     };
   }
 
@@ -171,6 +172,7 @@ function AddTarheel() {
             mobile: values.mobile.toString(),
           });
           if (response.data?.register.errors) {
+            console.log(values);
             await setErrors(toErrorMap(response.data.register.errors));
           } else {
             console.log(values);
@@ -231,13 +233,20 @@ function AddTarheel() {
                 value={values.address}
                 onChange={handleChange}
               />
-              <TextField
+              <ContactField
+                label="وسيلة تواصل"
+                name="mobile"
+                type="text"
+                value={values.mobile}
+                onChange={handleChange}
+              />
+              {/* <TextField
                 name="mobile"
                 label="رقم الهاتف"
                 type="number"
                 value={values.mobile}
                 onChange={handleChange}
-              />
+              /> */}
               <TextField
                 name="email"
                 label="البريد الالكتروني"
