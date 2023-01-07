@@ -27,7 +27,7 @@ const ImageDropzone: React.FC<imageDropzoneProps> = ({
   });
 
   return (
-    <div className="flex w-full max-w-sm justify-center ">
+    <div className="flex-col max-w-sm items-center">
       <div
         {...getRootProps({
           className:
@@ -42,7 +42,7 @@ const ImageDropzone: React.FC<imageDropzoneProps> = ({
         />
         {image ? <p>{image.name}</p> : <p>اضغط هنا لرفع صورة للسيارة</p>}
       </div>
-      {error ? <div className="text-red-600">{error}</div> : null}
+      {error ? <div className="text-red-600 text-center">{error}</div> : null}
     </div>
   );
 };

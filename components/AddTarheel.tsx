@@ -1,9 +1,10 @@
 import { ErrorMessage, Form, Formik, FormikErrors } from "formik";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   CreatePostMutationVariables,
   FullRegisterInput,
   useCreatePostMutation,
+  useMeQuery,
   useRegisterMutation,
 } from "../generated/graphql";
 import Button from "./Button";
@@ -59,16 +60,37 @@ function AddTarheel() {
   const [image, setImage] = useState<File>();
 
   //--------------------------------------------------------------------------------------
+  const [isServer, setIsServer] = useState(true);
+  useEffect(() => {
+    setIsServer(false);
+  });
+  let initialStep: 1 | 2 | 3;
+  let initialVisibilty: StepsVisibility;
 
-  const [step, setStep] = useState<1 | 2 | 3>(1);
+  const [{ data }] = useMeQuery({
+    pause: isServer,
+  });
+  if (data?.me || !data?.me?.post) {
+    initialStep = 2;
+    initialVisibilty = {
+      step1: "hidden",
+      step2: "",
+      step3: "hidden",
+    };
+  } else {
+    initialStep = 1;
+    initialVisibilty = {
+      step1: "hidden",
+      step2: "hidden",
+      step3: "",
+    };
+  }
+
+  const [step, setStep] = useState<1 | 2 | 3>(initialStep);
   const [, register] = useRegisterMutation();
   const [, createPost] = useCreatePostMutation();
 
-  const [steps, setSteps] = useState<StepsVisibility>({
-    step1: "",
-    step2: "hidden",
-    step3: "hidden",
-  });
+  const [steps, setSteps] = useState<StepsVisibility>(initialVisibilty);
 
   const nextStep = () => {
     console.log(imageId);
