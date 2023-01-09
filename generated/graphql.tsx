@@ -41,6 +41,7 @@ export type FieldError = {
 export type FullRegisterInput = {
   address: Scalars['String'];
   batch: Scalars['String'];
+  college: Scalars['String'];
   dep: Scalars['String'];
   email: Scalars['String'];
   gender: Scalars['String'];
@@ -136,6 +137,8 @@ export type User = {
   __typename?: 'User';
   address: Scalars['String'];
   batch: Scalars['String'];
+  college: Scalars['String'];
+  confirmed: Scalars['Boolean'];
   createdAt: Scalars['String'];
   dep: Scalars['String'];
   email: Scalars['String'];
@@ -144,6 +147,7 @@ export type User = {
   mobile: Scalars['String'];
   name: Scalars['String'];
   post?: Maybe<Post>;
+  uni: Scalars['String'];
   updatedAt: Scalars['String'];
 };
 
@@ -215,6 +219,7 @@ export type RegisterMutationVariables = Exact<{
   name: Scalars['String'];
   address: Scalars['String'];
   mobile: Scalars['String'];
+  college: Scalars['String'];
   dep: Scalars['String'];
   batch: Scalars['String'];
   gender: Scalars['String'];
@@ -332,9 +337,9 @@ export function useLogoutMutation() {
   return Urql.useMutation<LogoutMutation, LogoutMutationVariables>(LogoutDocument);
 };
 export const RegisterDocument = gql`
-    mutation Register($email: String!, $password: String!, $name: String!, $address: String!, $mobile: String!, $dep: String!, $batch: String!, $gender: String!) {
+    mutation Register($email: String!, $password: String!, $name: String!, $address: String!, $mobile: String!, $college: String!, $dep: String!, $batch: String!, $gender: String!) {
   register(
-    options: {email: $email, password: $password, name: $name, address: $address, mobile: $mobile, dep: $dep, batch: $batch, gender: $gender}
+    options: {email: $email, password: $password, name: $name, address: $address, mobile: $mobile, college: $college, dep: $dep, batch: $batch, gender: $gender}
   ) {
     errors {
       field

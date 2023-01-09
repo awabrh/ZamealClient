@@ -4,6 +4,7 @@ mutation Register(
   $name: String!
   $address: String!
   $mobile: String!
+  $college: String!
   $dep: String!
   $batch: String!
   $gender: String!
@@ -15,6 +16,7 @@ mutation Register(
       name: $name
       address: $address
       mobile: $mobile
+      college: $college
       dep: $dep
       batch: $batch
       gender: $gender

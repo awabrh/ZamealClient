@@ -29,6 +29,7 @@ interface StepsVisibility {
 
 const registerInitialValues: FullRegisterInput = {
   name: "",
+  college: "engineering",
   dep: "mechanical",
   batch: "016",
   gender: "male",
@@ -203,6 +204,16 @@ function AddTarheel() {
                     value={values.name}
                     onChange={handleChange}
                   />
+                  <Select
+                    name="college"
+                    label="الكلية"
+                    value={values.college}
+                    onChange={handleChange}
+                  >
+                    <option value="engineering">الهندسة</option>
+                    <option value="architecture">العمارة</option>
+                    <option value="science">العلوم</option>
+                  </Select>
                   <Select
                     name="dep"
                     label="القسم"
