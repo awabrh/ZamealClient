@@ -1,23 +1,26 @@
-query Posts($location: String) {
-  posts(location: $location) {
-    id
-    createdAt
-    updatedAt
-    imageId
-    carModel
-    numberOfSeats
-    isAcWorking
-    locations
-    price
-    departure
-    arrival
-    days
-    user {
+query Posts($location: String, $limit: Int!, $offset: Int) {
+  posts(location: $location, limit: $limit, offset: $offset) {
+    posts {
       id
-      name
-      dep
-      batch
-      address
+      createdAt
+      updatedAt
+      imageId
+      carModel
+      numberOfSeats
+      isAcWorking
+      locations
+      price
+      departure
+      arrival
+      days
+      user {
+        id
+        name
+        dep
+        batch
+        address
+      }
     }
+    count
   }
 }

@@ -115,12 +115,18 @@ export type Post = {
   user: User;
 };
 
+export type PostsResponse = {
+  __typename?: 'PostsResponse';
+  count: Scalars['Int'];
+  posts: Array<Post>;
+};
+
 export type Query = {
   __typename?: 'Query';
   hello: Scalars['String'];
   me?: Maybe<User>;
   post?: Maybe<Post>;
-  posts: Array<Post>;
+  posts: PostsResponse;
 };
 
 
@@ -130,7 +136,9 @@ export type QueryPostArgs = {
 
 
 export type QueryPostsArgs = {
+  limit: Scalars['Int'];
   location?: InputMaybe<Scalars['String']>;
+  offset?: InputMaybe<Scalars['Int']>;
 };
 
 export type User = {
@@ -242,10 +250,12 @@ export type PostQuery = { __typename?: 'Query', post?: { __typename?: 'Post', id
 
 export type PostsQueryVariables = Exact<{
   location?: InputMaybe<Scalars['String']>;
+  limit: Scalars['Int'];
+  offset?: InputMaybe<Scalars['Int']>;
 }>;
 
 
-export type PostsQuery = { __typename?: 'Query', posts: Array<{ __typename?: 'Post', id: number, createdAt: string, updatedAt: string, imageId: string, carModel: string, numberOfSeats: number, isAcWorking: boolean, locations: string, price: number, departure: string, arrival: string, days: string, user: { __typename?: 'User', id: number, name: string, dep: string, batch: string, address: string } }> };
+export type PostsQuery = { __typename?: 'Query', posts: { __typename?: 'PostsResponse', count: number, posts: Array<{ __typename?: 'Post', id: number, createdAt: string, updatedAt: string, imageId: string, carModel: string, numberOfSeats: number, isAcWorking: boolean, locations: string, price: number, departure: string, arrival: string, days: string, user: { __typename?: 'User', id: number, name: string, dep: string, batch: string, address: string } }> } };
 
 export const RegularErrorFragmentDoc = gql`
     fragment RegularError on FieldError {
@@ -402,31 +412,34 @@ export function usePostQuery(options: Omit<Urql.UseQueryArgs<PostQueryVariables>
   return Urql.useQuery<PostQuery, PostQueryVariables>({ query: PostDocument, ...options });
 };
 export const PostsDocument = gql`
-    query Posts($location: String) {
-  posts(location: $location) {
-    id
-    createdAt
-    updatedAt
-    imageId
-    carModel
-    numberOfSeats
-    isAcWorking
-    locations
-    price
-    departure
-    arrival
-    days
-    user {
+    query Posts($location: String, $limit: Int!, $offset: Int) {
+  posts(location: $location, limit: $limit, offset: $offset) {
+    posts {
       id
-      name
-      dep
-      batch
-      address
+      createdAt
+      updatedAt
+      imageId
+      carModel
+      numberOfSeats
+      isAcWorking
+      locations
+      price
+      departure
+      arrival
+      days
+      user {
+        id
+        name
+        dep
+        batch
+        address
+      }
     }
+    count
   }
 }
     `;
 
-export function usePostsQuery(options?: Omit<Urql.UseQueryArgs<PostsQueryVariables>, 'query'>) {
+export function usePostsQuery(options: Omit<Urql.UseQueryArgs<PostsQueryVariables>, 'query'>) {
   return Urql.useQuery<PostsQuery, PostsQueryVariables>({ query: PostsDocument, ...options });
 };
