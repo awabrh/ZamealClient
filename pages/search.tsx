@@ -10,7 +10,7 @@ import Pager from "../components/Pager";
 const search: React.FC = () => {
   const router = useRouter();
   const { query, page } = router.query;
-  const limit = 3;
+  const limit = 12;
   const pageIndex = page ? parseInt(page as string) - 1 : 0;
   const offset = pageIndex * limit;
 
@@ -41,7 +41,9 @@ const search: React.FC = () => {
               {data?.posts.posts.map((post) => (
                 <SearchItem post={post} key={post.id} />
               ))}
-              <Pager limit={limit} count={count} pageIndex={pageIndex} />
+              {count > limit && (
+                <Pager limit={limit} count={count} pageIndex={pageIndex} />
+              )}
             </>
           )}
         </div>
