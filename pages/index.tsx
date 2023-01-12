@@ -6,7 +6,7 @@ import { createUrqlClient } from "../utils/createUrqlClient";
 
 function index() {
   return (
-    <div className="bg-black h-screen text-white">
+    <div className="bg-black text-white">
       <Navbar />
       <Hero />
     </div>

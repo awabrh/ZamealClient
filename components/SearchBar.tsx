@@ -27,7 +27,7 @@ function SearchBar({ sameRow }: searchProps) {
             />
             <input
               name="search"
-              className="bg-black w-5/6 sm:w-96 h-10 rounded-md text-sm px-5 transition-all"
+              className="bg-black w-64 sm:w-96 h-10 rounded-md text-sm px-5 transition-all"
               placeholder="ساكن وين؟  جبل أولياء ، المهندسين ، الصافية ..."
               type="text"
               onChange={handleChange}
