@@ -26,6 +26,7 @@ function register() {
               address: "",
               mobile: "",
               dep: "",
+              college: "",
               batch: "",
               gender: "",
             }}
