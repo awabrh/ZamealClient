@@ -1,18 +1,18 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    './pages/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
+    "./pages/**/*.{js,ts,jsx,tsx}",
+    "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
     screens: {
-      'double' : '520px',
-      'triple' : '960px',
-      'sm' : '640px',      
-      'md' : '786px',      
-      'lg' : '1024px',      
-      'xl' : '1280px',      
-      '2xl' : '1536',      
+      double: "520px",
+      triple: "960px",
+      sm: "640px",
+      md: "786px",
+      lg: "1024px",
+      xl: "1280px",
+      "2xl": "1536",
     },
     extend: {
       colors: {
@@ -26,7 +26,5 @@ module.exports = {
       },
     },
   },
-  plugins: [
-    require('@tailwindcss/forms'),
-  ],
-}
+  plugins: [require("@tailwindcss/forms")],
+};

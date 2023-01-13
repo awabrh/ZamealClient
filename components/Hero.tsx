@@ -15,10 +15,10 @@ function Hero() {
     console.log(width);
     const offset = width / 2 - 288;
     setShadows({
-      shadow1: `${offset + 160},0  ${offset + 5},360  ${offset + 300},360 ${
+      shadow1: `${offset + 165},0  ${offset - 135},360  ${offset + 280},360 ${
         offset + 285
       },0`,
-      shadow2: `${offset + 305},0  ${offset + 350},360  ${offset + 577},360 ${
+      shadow2: `${offset + 307},0  ${offset + 360},360  ${offset + 750},360 ${
         offset + 415
       },0 `,
     });
@@ -29,7 +29,7 @@ function Hero() {
       className=" border-blue-600 flex flex-col w-full justify-start h-full"
       dir="rtl"
     >
-      <div className="flex flex-col pt-6 pb-2 w-full  border-red-600 justify-center items-center z-10">
+      <div className=" bg-gradient-to-t flex flex-col pt-6 pb-2 w-full justify-center items-center z-10">
         <div className="flex flex-col items-center">
           <h2 className="text-2xl">عاوز ترحيل؟</h2>
           <h1 className="font-bold text-5xl">ما تشيل هم!</h1>
@@ -59,7 +59,7 @@ function Hero() {
           <svg
             id="svgelem"
             xmlns="http://www.w3.org/2000/svg"
-            className="w-full max-w-full mt-8 h-full border border-blue-800"
+            className="w-full max-w-full mt-8 h-full border-blue-800"
             ref={ref}
           >
             <polygon points={shadows.shadow1} />
