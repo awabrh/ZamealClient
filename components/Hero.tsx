@@ -29,8 +29,11 @@ function Hero() {
       className=" border-blue-600 flex flex-col w-full justify-start h-full"
       dir="rtl"
     >
-      <div className=" bg-gradient-to-t flex flex-col pt-6 pb-2 w-full justify-center items-center z-10">
-        <div className="flex flex-col items-center">
+      <div className="relative flex flex-col pt-24 pb-2 w-full justify-center items-center">
+        <div className="absolute overflow-clip pt-[3rem] mb-[3.6rem] flex justify-center items-center w-full h-[10rem]">
+          <div className="border-2 mt-32 border-[#9EA5B3] h-72 w-72 rounded-full" />
+        </div>
+        <div className="flex flex-col items-center mb-3">
           <h2 className="text-2xl">عاوز ترحيل؟</h2>
           <h1 className="font-bold text-5xl">ما تشيل هم!</h1>
         </div>
@@ -69,7 +72,7 @@ function Hero() {
         <object
           type="image/svg+xml"
           data="/bg.svg"
-          className=" border-green-500 -z-20"
+          className="bg-[#c038ff3b] z-20"
         >
           svg-animation
         </object>
