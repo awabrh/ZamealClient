@@ -7,32 +7,59 @@ import Tweets from "../components/Tweets";
 import { Parallax, ParallaxLayer } from "@react-spring/parallax";
 import Image from "next/image";
 import NeonSigns from "../components/NeonSigns";
+import { useRouter } from "next/router";
+import Footer from "../components/Footer";
 
 function index() {
+  const router = useRouter();
   return (
     <div className="bg-black text-white">
-      <Parallax pages={3} className="">
+      <Parallax pages={3.3} className="">
         <ParallaxLayer offset={0} className="flex flex-col">
           <Navbar />
           <Hero />
           <Tweets />
         </ParallaxLayer>
+        <ParallaxLayer offset={2.3} className="">
+          <Footer />
+        </ParallaxLayer>
         <ParallaxLayer offset={1.8} speed={0} className="">
           <div className="flex flex-col items-center justify-center">
             <NeonSigns />
-            <h2 className="text-3xl text-center px-9 pt-52 text-neutral-500">
+            <h2 className="text-center font-black text-3xl w-32 mt-40 text-2lg">
+              بدون ريتويت بدون متابعين
+            </h2>
+            <h2 className="text-center mt-4 mx-9 text-neutral-700">
               زميل بوصلك لي كل طلاب السنتر وبشيل منك هم الاعلان تماماً
             </h2>
+            <h2 className="pt-12">سجل الان او تصفح عروض التراحيل الموجودة</h2>
+            <div className="w-full flex justify-center px-8">
+              <div className="relative z-10 w-full mt-4 sm:w-32">
+                <button
+                  className="bg-black border shadow-black shadow-md border-primary w-full h-11 mt-4 pb-2 rounded-sm"
+                  onClick={() => router.push("/add")}
+                >
+                  اضف ترحيلك
+                </button>
+                <button
+                  className="bg-white text-black border shadow-black shadow-md border-primary w-full h-11 mt-4 pb-2 rounded-sm"
+                  onClick={() => router.push("/search")}
+                >
+                  تصفح العروض
+                </button>
+                <div className="absolute -z-10 w-full h-11 top-4 rounded-sm shadow-[0_10px_60px_-15px_rgba(0,0,0,0.3)] shadow-primary"></div>
+              </div>
+            </div>
           </div>
         </ParallaxLayer>
         <ParallaxLayer offset={1} speed={0.3} className="">
           <div className="flex justify-center">
-            <h2 className="text-3xl text-center px-9">
+            <h2 className="text-3xl font-black text-center px-9">
               وتضيع في زحمة السوشيال ميديا
             </h2>
           </div>
         </ParallaxLayer>
-        <ParallaxLayer offset={1} speed={1.2} className="">
+        <ParallaxLayer offset={1.1} speed={1.2} className="">
           <div className="relative rotate-3">
             <Image
               src="/tweet1.png"

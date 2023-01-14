@@ -51,7 +51,10 @@ function LoginForm() {
       </Formik>
       <div className="flex gap-2 font-light">
         <p>ليس لديك حساب؟</p>
-        <span className="font-bold text-primary cursor-pointer hover:text-purple-700 transition-all">
+        <span
+          onClick={() => router.push("/add")}
+          className="font-bold text-primary cursor-pointer hover:text-purple-700 transition-all"
+        >
           سجل الان
         </span>
       </div>

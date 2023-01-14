@@ -20,7 +20,13 @@ function Hero() {
       <div className="relative z-10 w-full mt-4 sm:w-32">
         <button
           className="bg-black border shadow-black shadow-md border-primary w-full h-11 mt-4 pb-2 rounded-sm"
-          onClick={() => router.push("/search?query=")}
+          onClick={() => router.push("/add")}
+        >
+          اضف ترحيلك
+        </button>
+        <button
+          className="bg-white text-black border shadow-black shadow-md border-primary w-full h-11 mt-4 pb-2 rounded-sm"
+          onClick={() => router.push("/search")}
         >
           تصفح العروض
         </button>

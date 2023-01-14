@@ -32,7 +32,7 @@ function Navbar() {
           </Link>
         </li>
         <li className="hover:text-[#555] hover:cursor-pointer transition-all duration-200">
-          <Link href="/register">تسجيل حساب</Link>
+          <Link href="/add">اضف ترحيلك</Link>
         </li>
       </>
     );
@@ -83,10 +83,10 @@ function Navbar() {
                 <li className="hover:text-[#555] hover:cursor-pointer transition-all duration-200">
                   <Link href="/">الرئيسية</Link>
                 </li>
-                {userLinks}
                 <li className="hover:text-[#555] hover:cursor-pointer transition-all duration-200">
-                  <Link href="/about">من نحن؟</Link>
+                  <Link href="/add">بحث</Link>
                 </li>
+                {userLinks}
               </ul>
             </div>
           </div>
@@ -102,7 +102,7 @@ function Navbar() {
             <ul className="flex text-md font-light gap-4">
               {userLinks}
               <li className="hover:text-[#555] hover:cursor-pointer transition-all duration-200">
-                <Link href="/about">من نحن؟</Link>
+                <Link href="/add">بحث</Link>
               </li>
               <li className="hover:text-[#555] hover:cursor-pointer transition-all duration-200">
                 <Link href="/">الرئيسية</Link>
