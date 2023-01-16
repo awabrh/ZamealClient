@@ -84,7 +84,7 @@ function Navbar() {
                   <Link href="/">الرئيسية</Link>
                 </li>
                 <li className="hover:text-[#555] hover:cursor-pointer transition-all duration-200">
-                  <Link href="/add">بحث</Link>
+                  <Link href="/search">بحث</Link>
                 </li>
                 {userLinks}
               </ul>
@@ -102,7 +102,7 @@ function Navbar() {
             <ul className="flex text-md font-light gap-4">
               {userLinks}
               <li className="hover:text-[#555] hover:cursor-pointer transition-all duration-200">
-                <Link href="/add">بحث</Link>
+                <Link href="/search">بحث</Link>
               </li>
               <li className="hover:text-[#555] hover:cursor-pointer transition-all duration-200">
                 <Link href="/">الرئيسية</Link>
