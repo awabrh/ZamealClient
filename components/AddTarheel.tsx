@@ -18,6 +18,7 @@ import { toErrorMap } from "../utils/toErrorMap";
 import ImageDropzone from "./ImageDropzone";
 import { useRouter } from "next/router";
 import ContactField from "./ContactField";
+import { arabicCollege, collegeDeps } from "../utils/colleges";
 
 type visisbility = "hidden" | "";
 
@@ -60,6 +61,9 @@ function AddTarheel() {
   //--------------------------------------------------------------------------------------
   const [imageId, setImageId] = useState<string>("");
   const [image, setImage] = useState<File>();
+  const [depOptions, setDepOptions] = useState<string[]>(
+    collegeDeps.engineering
+  );
 
   //--------------------------------------------------------------------------------------
   const [isServer, setIsServer] = useState(true);
@@ -219,10 +223,15 @@ function AddTarheel() {
                     label="القسم"
                     value={values.dep}
                     onChange={handleChange}
+                    setOptions={setDepOptions}
                   >
-                    <option value="mechanical">الهندسة الميكانيكية</option>
-                    <option value="electrical">الهندسة الكهربائية</option>
-                    <option value="agricultural">الهندسة الزراعية</option>
+                    {depOptions.map((value, index) => {
+                      return (
+                        <option value={value} key={index}>
+                          {arabicCollege.get(value)}
+                        </option>
+                      );
+                    })}
                   </Select>
                   <Select
                     name="batch"
@@ -260,13 +269,6 @@ function AddTarheel() {
                     value={values.mobile}
                     onChange={handleChange}
                   />
-                  {/* <TextField
-                name="mobile"
-                label="رقم الهاتف"
-                type="number"
-                value={values.mobile}
-                onChange={handleChange}
-              /> */}
                   <TextField
                     name="email"
                     label="البريد الالكتروني"
