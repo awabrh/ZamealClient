@@ -49,4 +49,4 @@ EXPOSE 3000
 ENV PORT 3000
 WORKDIR /app
 
-CMD ["next", "start"]
+CMD ["npm", "start"]
