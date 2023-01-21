@@ -4,6 +4,7 @@ import { HiX } from "react-icons/hi";
 import Link from "next/link";
 import { useLogoutMutation, useMeQuery } from "../generated/graphql";
 import { useEffect } from "react";
+import Head from "next/head";
 
 function Navbar() {
   const [isServer, setIsServer] = useState(true);
@@ -68,6 +69,47 @@ function Navbar() {
   return (
     // ------------------------------------------ mobile --------------------------------------------------
     <div dir="ltr">
+      <Head>
+        <title>زميل - اعرض ترحيلك لي كل الجامعة بسهولة</title>
+        <meta
+          name="description"
+          content="منصة بتوصلك لي كل طلاب الجامعة بدون متابعين ولا ريتويت!"
+        />
+
+        {/*<!-- Google / Search Engine Tags -->*/}
+        <meta itemProp="name" content="زميل" />
+        <meta
+          itemProp="image"
+          content="https://res.cloudinary.com/dqws5t0at/image/upload/v1674334249/ZamealCard_m58v8u.jpg"
+        />
+
+        {/*<!-- Facebook Meta Tags -->*/}
+        <meta
+          property="og:title"
+          content="زميل - اعرض ترحيلك لي كل الجامعة بسهولة"
+        />
+        <meta
+          property="og:image"
+          content="https://res.cloudinary.com/dqws5t0at/image/upload/v1674334249/ZamealCard_m58v8u.jpg"
+        />
+        <meta property="og:url" content="https://zameal.com" />
+        <meta property="og:type" content="website" />
+
+        {/*<!-- Twitter Meta Tags -->*/}
+        <meta
+          name="twitter:title"
+          content="زميل - اعرض ترحيلك لي كل الجامعة بسهولة"
+        />
+        <meta
+          name="twitter:description"
+          content=" زميل هي منصة بتوصل ترحيلك لي كل طلاب السنتر بدون متابعين او رتيويت ، مجاناً وبدون رسوم من الطلاب وللطلاب"
+        />
+        <meta
+          name="twitter:image"
+          content="https://res.cloudinary.com/dqws5t0at/image/upload/v1674334249/ZamealCard_m58v8u.jpg"
+        />
+        <meta name="twitter:card" content="summary_large_image" />
+      </Head>
       {toggle ? (
         <div className="absolute w-screen h-screen">
           <div className="fixed w-full z-50 h-full bg-[#000000e2]  flex flex-row-reverse justify-end transition-all duration-100">
@@ -96,7 +138,9 @@ function Navbar() {
       )}
       <div className="flex items-center h-16 md:h-24 border-b-[1px] border-b-[#bdbdbd25] transition-all bg-black ">
         <div className="flex justify-between w-full items-center mx-8">
-          <div className="hover:cursor-pointer">Zameal</div>
+          <a className="hover:cursor-pointer" href="https://zameal.com">
+            Zameal
+          </a>
 
           <div className="hidden md:flex">
             <ul className="flex text-md font-light gap-4">
