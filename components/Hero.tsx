@@ -10,10 +10,10 @@ function Hero() {
       dir="rtl"
     >
       <div className="flex z-0 flex-col w-full justify-center items-center">
-        <h4 className="font-light text-xl">عاوز ترحيل؟</h4>
-        <h4 className="font-black text-5xl">ما تشيل هم!</h4>
+        <h4 className="font-light text-xl font-inter">عاوز ترحيل؟</h4>
+        <h4 className="font-black text-5xl font-inter">ما تشيل هم!</h4>
       </div>
-      <p className="text-center z-0 pt-5 text-neutral-600">
+      <p className="text-center z-0 pt-5 text-neutral-600 font-inter">
         زميل هي منصة تمكن الطلاب من عرض سياراتهم كتراحيل لزملائهم الطلبة في كل
         انحاء مجمع الوسط.
       </p>
