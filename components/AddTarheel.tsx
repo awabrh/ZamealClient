@@ -217,6 +217,10 @@ function AddTarheel() {
                     <option value="engineering">الهندسة</option>
                     <option value="architecture">العمارة</option>
                     <option value="science">العلوم</option>
+                    <option value="arts">ادآب</option>
+                    <option value="economics">الاقتصاد</option>
+                    <option value="law">القانون</option>
+                    <option value="geography">الجغرافيا</option>
                   </Select>
                   <Select
                     name="dep"
@@ -245,6 +249,7 @@ function AddTarheel() {
                     <option value="019">019</option>
                     <option value="020">020</option>
                     <option value="021">021</option>
+                    <option value="021">022</option>
                   </Select>
                   <Select
                     name="gender"
