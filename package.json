@@ -3,7 +3,7 @@
   "scripts": {
     "dev": "next dev",
     "dokku": {
-      "predeploy" : "npm run build"
+      "predeploy": "npm run build"
     },
     "build": "next build",
     "start": "next start",
@@ -12,6 +12,7 @@
   "dependencies": {
     "@cloudinary/react": "^1.5.0",
     "@cloudinary/url-gen": "^1.8.6",
+    "@next/font": "^13.1.4",
     "@react-spring/parallax": "^9.6.1",
     "@react-spring/web": "^9.6.1",
     "@svgr/webpack": "^6.5.1",
@@ -20,10 +21,10 @@
     "formik": "^2.2.9",
     "graphql": "^16.6.0",
     "isomorphic-unfetch": "^3.1.0",
-    "next": "latest",
+    "next": "^13.1.4",
     "next-urql": "^4.0.0",
-    "react": "18.1.0",
-    "react-dom": "18.1.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "react-dropzone": "^14.2.3",
     "react-icons": "^4.4.0",
     "react-is": "^18.2.0",
