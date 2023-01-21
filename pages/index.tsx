@@ -7,7 +7,7 @@ import Footer from "../components/Footer";
 
 function index() {
   return (
-    <div className="flex flex-col text-white h-screen justify-around">
+    <div className="flex flex-col text-white h-screen justify-around font-inter">
       <Navbar />
       <Hero />
       <Footer />
