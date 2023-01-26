@@ -8,5 +8,5 @@ const cld = new Cloudinary({
 
 export const getImage = (imageId: string) => {
   const id = imageId === "" ? "bhcir6reqesukouuuv9q" : imageId;
-  return cld.image(id).toURL();
+  return cld.image(id).quality("auto:eco").toURL();
 };
