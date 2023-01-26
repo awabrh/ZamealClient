@@ -23,7 +23,11 @@ const Pager: React.FC<PagerProps> = ({ count, limit, pageIndex }) => {
           <p
             className="hover:text-primary cursor-pointer transition-all"
             onClick={() => {
-              router.push(`/search?query=${query}&page=${currentPage - 1}`);
+              if (query) {
+                router.push(`/search?query=${query}&page=${currentPage - 1}`);
+              } else {
+                router.push(`/search?page=${currentPage - 1}`);
+              }
             }}
           >
             السابقة
@@ -36,7 +40,11 @@ const Pager: React.FC<PagerProps> = ({ count, limit, pageIndex }) => {
               key={i}
               className={`px-2 ${color} hover:text-primary cursor-pointer transition-all`}
               onClick={() => {
-                router.push(`/search?query=${query}&page=${minPage + i}`);
+                if (query) {
+                  router.push(`/search?query=${query}&page=${minPage + i}`);
+                } else {
+                  router.push(`/search?page=${minPage + i}`);
+                }
               }}
             >
               {minPage + i}
@@ -47,7 +55,11 @@ const Pager: React.FC<PagerProps> = ({ count, limit, pageIndex }) => {
           <p
             className="hover:text-primary cursor-pointer transition-all"
             onClick={() => {
-              router.push(`/search?query=${query}&page=${currentPage + 1}`);
+              if (query) {
+                router.push(`/search?query=${query}&page=${currentPage + 1}`);
+              } else {
+                router.push(`/search?page=${currentPage + 1}`);
+              }
             }}
           >
             التالية
