@@ -96,6 +96,8 @@ function Navbar() {
         <meta property="og:type" content="website" />
 
         {/*<!-- Twitter Meta Tags -->*/}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:creator" content="@awabrh"></meta>
         <meta
           name="twitter:title"
           content="زميل - اعرض ترحيلك لي كل الجامعة بسهولة"
@@ -108,7 +110,6 @@ function Navbar() {
           name="twitter:image"
           content="https://res.cloudinary.com/dqws5t0at/image/upload/v1674334249/ZamealCard_m58v8u.jpg"
         />
-        <meta name="twitter:card" content="summary_large_image" />
       </Head>
       {toggle ? (
         <div className="absolute w-screen h-screen">
