@@ -2,9 +2,6 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "dokku": {
-      "predeploy": "npm run build"
-    },
     "build": "next build",
     "start": "next start",
     "gen": "graphql-codegen --config codegen.yml"
