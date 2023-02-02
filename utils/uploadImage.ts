@@ -7,7 +7,7 @@ export const uploadImage = async (image: File): Promise<string | null> => {
   let response;
   try {
     response = await axios.post(
-      `https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUDNAME}/upload/q_auto:eco`,
+      `https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUDNAME}/upload`,
       formData
     );
     console.log(response.data);
